@@ -54,6 +54,8 @@ class ProductVariationController extends Controller
 
     public function update(Request $request, Product $product, ProductVariation $variation)
     {
+        $this->authorizeVariation($product, $variation);
+
         $data = $request->validate([
             'sku'            => 'nullable|string|max:100',
             'price'          => 'required|numeric|min:0',
@@ -72,16 +74,24 @@ class ProductVariationController extends Controller
 
     public function uploadImage(Request $request, Product $product, ProductVariation $variation)
     {
+        $this->authorizeVariation($product, $variation);
+
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
+
+        $file = $request->file('image');
+        $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
+            abort(422, 'Invalid image file.');
+        }
 
         if ($variation->image) {
             Storage::disk('public')->delete($variation->image);
         }
 
         $variation->update([
-            'image' => $request->file('image')->store('products/variations', 'public'),
+            'image' => $file->store('products/variations', 'public'),
         ]);
 
         return response()->json([
@@ -92,6 +102,8 @@ class ProductVariationController extends Controller
 
     public function removeImage(Product $product, ProductVariation $variation)
     {
+        $this->authorizeVariation($product, $variation);
+
         if ($variation->image) {
             Storage::disk('public')->delete($variation->image);
             $variation->update(['image' => null]);
@@ -102,6 +114,8 @@ class ProductVariationController extends Controller
 
     public function destroy(Product $product, ProductVariation $variation)
     {
+        $this->authorizeVariation($product, $variation);
+
         if ($variation->image) {
             Storage::disk('public')->delete($variation->image);
         }
@@ -109,6 +123,13 @@ class ProductVariationController extends Controller
         $variation->delete();
 
         return response()->json(['message' => 'Variation deleted.']);
+    }
+
+    private function authorizeVariation(Product $product, ProductVariation $variation): void
+    {
+        if ($variation->product_id !== $product->id) {
+            abort(403);
+        }
     }
 
     private function cartesian(array $groups): array

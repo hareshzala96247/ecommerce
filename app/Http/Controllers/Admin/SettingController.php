@@ -47,23 +47,40 @@ class SettingController extends Controller
         ]);
 
         if ($request->hasFile('logo')) {
+            $file = $request->file('logo');
+            $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+            if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
+                abort(422, 'Invalid logo file.');
+            }
             $old = Setting::get('logo');
             if ($old) Storage::disk('public')->delete($old);
-            $data['logo'] = $request->file('logo')->store('settings', 'public');
+            $data['logo'] = $file->store('settings', 'public');
         } else {
             unset($data['logo']);
         }
 
         if ($request->hasFile('favicon')) {
+            $file = $request->file('favicon');
+            $allowed = ['image/png', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon'];
+            if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
+                abort(422, 'Invalid favicon file.');
+            }
             $old = Setting::get('favicon');
             if ($old) Storage::disk('public')->delete($old);
-            $data['favicon'] = $request->file('favicon')->store('settings', 'public');
+            $data['favicon'] = $file->store('settings', 'public');
         } else {
             unset($data['favicon']);
         }
 
+        $allowedKeys = [
+            'site_name', 'site_tagline', 'contact_email', 'contact_phone', 'contact_address',
+            'social_facebook', 'social_instagram', 'social_twitter', 'social_youtube',
+            'meta_title', 'meta_description', 'logo', 'favicon',
+        ];
         foreach ($data as $key => $value) {
-            Setting::set($key, $value ?? '');
+            if (in_array($key, $allowedKeys, true)) {
+                Setting::set($key, $value ?? '');
+            }
         }
 
         return response()->json(['message' => 'Settings saved.', 'settings' => Setting::allKeyed()]);

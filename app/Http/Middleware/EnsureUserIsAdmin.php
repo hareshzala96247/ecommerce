@@ -16,7 +16,7 @@ class EnsureUserIsAdmin
                 : redirect('/admin/login');
         }
 
-        if (auth()->user()->role !== 'admin') {
+        if (strtolower((string) auth()->user()->role) !== 'admin') {
             return $request->expectsJson()
                 ? response()->json(['message' => 'Unauthorized.'], 403)
                 : redirect('/admin/login');

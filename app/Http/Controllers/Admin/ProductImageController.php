@@ -16,7 +16,12 @@ class ProductImageController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
-        $path     = $request->file('image')->store('products/gallery', 'public');
+        $file = $request->file('image');
+        $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
+            abort(422, 'Invalid image file.');
+        }
+        $path = $file->store('products/gallery', 'public');
         $maxOrder = $product->images()->max('sort_order') ?? -1;
 
         $image = $product->images()->create([
@@ -29,6 +34,10 @@ class ProductImageController extends Controller
 
     public function destroy(Product $product, ProductImage $image)
     {
+        if ($image->product_id !== $product->id) {
+            abort(403);
+        }
+
         Storage::disk('public')->delete($image->path);
         $image->delete();
 

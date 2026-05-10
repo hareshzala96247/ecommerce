@@ -48,7 +48,9 @@
       "PowerShell(ls \"D:\\\\wamp64\\\\www\\\\ecommerce\\\\app\\\\Http\\\\Controllers\" -Recurse -File | Where-Object {$_.Extension -eq '.php'})",
       "PowerShell(ls \"D:\\\\wamp64\\\\www\\\\ecommerce\\\\public\" -Recurse | Where-Object {$_.PSIsContainer -eq $true})",
       "Bash(Test-Path D:\\\\wamp64\\\\www\\\\ecommerce\\\\public\\\\storage *)",
-      "Bash(npm info *)"
+      "Bash(npm info *)",
+      "Bash(Get-ChildItem -Force -Recurse -Depth 2)",
+      "Bash(Get-ChildItem -Path \"D:\\\\wamp64\\\\www\\\\ecommerce\" -Recurse -Directory)"
     ]
   }
 }

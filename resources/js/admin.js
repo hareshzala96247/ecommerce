@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import App from './admin/App.vue';
 import axios from 'axios';
+import { store, initAdminAuth } from './admin/store';
 
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -39,8 +40,9 @@ const router = createRouter({
     ],
 });
 
-router.beforeEach((to) => {
-    const loggedIn = !!localStorage.getItem('adminUser');
+router.beforeEach(async (to) => {
+    await initAdminAuth();
+    const loggedIn = !!store.user;
     if (to.meta.requiresAuth && !loggedIn) return '/admin/login';
     if (to.meta.guest && loggedIn) return '/admin/dashboard';
 });

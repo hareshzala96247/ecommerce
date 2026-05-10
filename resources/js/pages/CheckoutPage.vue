@@ -331,9 +331,9 @@ async function placeOrder() {
 
     const { data } = await axios.post('/api/orders', payload);
     if (data.guest_token) {
-      const tokens = JSON.parse(localStorage.getItem('guestOrderTokens') || '{}');
+      const tokens = JSON.parse(sessionStorage.getItem('guestOrderTokens') || '{}');
       tokens[data.order.id] = data.guest_token;
-      localStorage.setItem('guestOrderTokens', JSON.stringify(tokens));
+      sessionStorage.setItem('guestOrderTokens', JSON.stringify(tokens));
     }
     clearCart();
     router.push({ path: '/order/confirmation', query: { id: data.order.id } });

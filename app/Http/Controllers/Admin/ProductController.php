@@ -43,7 +43,7 @@ class ProductController extends Controller
         ]);
 
         $data['image'] = $request->hasFile('image')
-            ? $request->file('image')->store('products', 'public')
+            ? $this->storeVerifiedImage($request->file('image'), 'products')
             : null;
 
         $data['slug'] = Str::slug($data['name']).'-'.Str::random(5);
@@ -85,7 +85,7 @@ class ProductController extends Controller
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
-            $data['image'] = $request->file('image')->store('products', 'public');
+            $data['image'] = $this->storeVerifiedImage($request->file('image'), 'products');
         } elseif ($request->boolean('remove_image')) {
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
@@ -100,6 +100,15 @@ class ProductController extends Controller
         Log::info('admin.product.updated', ['admin_id' => auth()->id(), 'product_id' => $product->id, 'name' => $product->name]);
 
         return response()->json(['data' => $product->load(['category', 'images']), 'message' => 'Product updated.']);
+    }
+
+    private function storeVerifiedImage(\Illuminate\Http\UploadedFile $file, string $directory): string
+    {
+        $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
+            abort(422, 'Invalid image file.');
+        }
+        return $file->store($directory, 'public');
     }
 
     public function destroy(Product $product)

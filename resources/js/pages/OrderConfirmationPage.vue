@@ -135,7 +135,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import axios from 'axios';
 
@@ -150,7 +150,7 @@ async function fetchOrder(id) {
   animate.value = false;
   loading.value = true;
   try {
-    const tokens = JSON.parse(localStorage.getItem('guestOrderTokens') || '{}');
+    const tokens = JSON.parse(sessionStorage.getItem('guestOrderTokens') || '{}');
     const params = tokens[id] ? { token: tokens[id] } : {};
     const { data } = await axios.get(`/api/orders/${id}`, { params });
     order.value = data.data;
@@ -188,6 +188,14 @@ const orderDate = computed(() => {
 });
 
 onMounted(() => fetchOrder(route.query.id));
+
+onUnmounted(() => {
+    const id = route.query.id;
+    if (!id) return;
+    const tokens = JSON.parse(sessionStorage.getItem('guestOrderTokens') || '{}');
+    delete tokens[id];
+    sessionStorage.setItem('guestOrderTokens', JSON.stringify(tokens));
+});
 </script>
 
 <style scoped>

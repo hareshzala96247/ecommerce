@@ -6,6 +6,8 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -64,33 +66,54 @@ class OrderController extends Controller
         $total      = round($subtotal + $shipping, 2);
         $guestToken = auth()->check() ? null : Str::random(40);
 
-        $order = Order::create([
-            'user_id'        => auth()->id(),
-            'guest_token'    => $guestToken,
-            'customer_name'  => $data['name'],
-            'customer_email' => $data['email'],
-            'phone'          => $data['phone'] ?? null,
-            'address'        => $data['address'],
-            'city'           => $data['city'],
-            'state'          => $data['state'] ?? null,
-            'zip'            => $data['zip'],
-            'country'        => $data['country'],
-            'total'          => $total,
-            'status'         => 'pending',
-            'notes'          => $data['notes'] ?? null,
-        ]);
-
-        foreach ($resolvedItems as $item) {
-            $order->items()->create([
-                'product_id'   => $item['product_id'],
-                'product_name' => $item['name'],
-                'price'        => $item['price'],
-                'quantity'     => $item['qty'],
+        $order = DB::transaction(function () use ($data, $guestToken, $total, $resolvedItems, $variations, $products) {
+            $order = Order::create([
+                'user_id'        => auth()->id(),
+                'guest_token'    => $guestToken ? hash('sha256', $guestToken) : null,
+                'customer_name'  => $data['name'],
+                'customer_email' => $data['email'],
+                'phone'          => $data['phone'] ?? null,
+                'address'        => $data['address'],
+                'city'           => $data['city'],
+                'state'          => $data['state'] ?? null,
+                'zip'            => $data['zip'],
+                'country'        => $data['country'],
+                'total'          => $total,
+                'status'         => 'pending',
+                'notes'          => $data['notes'] ?? null,
             ]);
-        }
+
+            foreach ($resolvedItems as $item) {
+                $order->items()->create([
+                    'product_id'   => $item['product_id'],
+                    'product_name' => $item['name'],
+                    'price'        => $item['price'],
+                    'quantity'     => $item['qty'],
+                ]);
+
+                $vid = $item['variation_id'] ?? null;
+                if ($vid && $variations->has($vid)) {
+                    $variations[$vid]->decrement('stock', $item['qty']);
+                } elseif ($products->has($item['product_id'])) {
+                    $products[$item['product_id']]->decrement('stock', $item['qty']);
+                }
+            }
+
+            return $order;
+        });
+
+        Log::info('order.created', [
+            'order_id'       => $order->id,
+            'user_id'        => auth()->id(),
+            'total'          => $order->total,
+            'customer_email' => $order->customer_email,
+            'is_guest'       => $guestToken !== null,
+        ]);
 
         $response = ['order' => $order->load('items')];
         if ($guestToken) {
+            // Store in session so the confirmation page doesn't need to expose the token in the URL
+            session(['guest_token_' . $order->id => $guestToken]);
             $response['guest_token'] = $guestToken;
         }
 
@@ -118,8 +141,9 @@ class OrderController extends Controller
             if ($order->user_id !== null) {
                 return response()->json(['message' => 'Not found.'], 404);
             }
-            $token = (string) $request->query('token', '');
-            if (!$order->guest_token || !hash_equals($order->guest_token, $token)) {
+            // Prefer the session-stored token to avoid URL exposure; fall back to query param
+            $token = session('guest_token_' . $order->id) ?? (string) $request->query('token', '');
+            if (!$order->guest_token || empty($token) || !hash_equals($order->guest_token, hash('sha256', $token))) {
                 return response()->json(['message' => 'Not found.'], 404);
             }
         }

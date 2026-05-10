@@ -40,8 +40,8 @@ Route::prefix('api/favorites')->group(function () {
 
 // Customer Orders API
 Route::prefix('api/orders')->group(function () {
-    Route::post('/',       [CustomerOrderController::class, 'store']);  // public: guest checkout
-    Route::get('/{order}', [CustomerOrderController::class, 'show']);   // public: guest order confirmation
+    Route::middleware('throttle:10,1')->post('/', [CustomerOrderController::class, 'store']);  // public: guest checkout
+    Route::get('/{order}', [CustomerOrderController::class, 'show']);                          // public: guest order confirmation
 });
 Route::middleware('auth')->prefix('api/orders')->group(function () {
     Route::get('/', [CustomerOrderController::class, 'index']);
