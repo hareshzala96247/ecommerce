@@ -114,7 +114,7 @@ class OrderController extends Controller
         ]);
 
         try {
-            Mail::to($order->customer_email)->send(new OrderConfirmedEmail($order));
+            Mail::to($order->customer_email)->queue(new OrderConfirmedEmail($order));
         } catch (\Throwable $e) {
             Log::warning('order_confirmed_email_failed', ['order_id' => $order->id, 'error' => $e->getMessage()]);
         }

@@ -40,7 +40,7 @@ class OrderController extends Controller
         // Send notification for all statuses except pending (covered by order confirmation)
         if ($request->status !== 'pending') {
             try {
-                Mail::to($order->customer_email)->send(new OrderStatusUpdatedEmail($order));
+                Mail::to($order->customer_email)->queue(new OrderStatusUpdatedEmail($order));
             } catch (\Throwable $e) {
                 Log::warning('order_status_email_failed', ['order_id' => $order->id, 'error' => $e->getMessage()]);
             }

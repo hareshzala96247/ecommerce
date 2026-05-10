@@ -31,7 +31,7 @@ class CustomerAuthController extends Controller
         $request->session()->regenerate();
 
         try {
-            Mail::to($user->email)->send(new WelcomeEmail($user));
+            Mail::to($user->email)->queue(new WelcomeEmail($user));
         } catch (\Throwable $e) {
             Log::warning('welcome_email_failed', ['user_id' => $user->id, 'error' => $e->getMessage()]);
         }
