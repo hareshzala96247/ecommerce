@@ -98,9 +98,13 @@
           <div class="divide-y divide-gray-50">
             <div v-for="item in order.items" :key="item.id"
               class="flex items-center gap-4 px-6 py-4">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                style="background:#F5F5F7;">
-                🛍️
+              <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0" style="background:#F5F5F7;">
+                <img v-if="item.variation?.image || item.product?.image"
+                  :src="`/storage/${item.variation?.image ?? item.product.image}`"
+                  :alt="item.product_name" class="w-full h-full object-cover" />
+                <div v-else class="w-full h-full flex items-center justify-center text-xl">
+                  {{ item.product?.emoji || '🛍️' }}
+                </div>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold truncate" style="color:#0F0F1A;">{{ item.product_name }}</p>
@@ -260,7 +264,7 @@ const shipping = computed(() => {
 
 onMounted(async () => {
   try {
-    const tokens = JSON.parse(localStorage.getItem('guestOrderTokens') || '{}');
+    const tokens = JSON.parse(sessionStorage.getItem('guestOrderTokens') || '{}');
     const params = tokens[route.params.id] ? { token: tokens[route.params.id] } : {};
     const { data } = await axios.get(`/api/orders/${route.params.id}`, { params });
     order.value = data.data;

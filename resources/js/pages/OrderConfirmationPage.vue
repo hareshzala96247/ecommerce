@@ -64,9 +64,13 @@
             <div v-for="item in order.items" :key="item.id"
               class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center text-base flex-shrink-0"
-                  style="background:#F5F5F7;">
-                  🛍️
+                <div class="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0" style="background:#F5F5F7;">
+                  <img v-if="item.variation?.image || item.product?.image"
+                    :src="`/storage/${item.variation?.image ?? item.product.image}`"
+                    :alt="item.product_name" class="w-full h-full object-cover" />
+                  <div v-else class="w-full h-full flex items-center justify-center text-base">
+                    {{ item.product?.emoji || '🛍️' }}
+                  </div>
                 </div>
                 <div class="min-w-0">
                   <p class="text-sm font-medium truncate" style="color:#0F0F1A;">{{ item.product_name }}</p>

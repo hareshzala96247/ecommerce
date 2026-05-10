@@ -184,9 +184,12 @@
             <div class="space-y-3 mb-4 max-h-64 overflow-y-auto pr-1">
               <div v-for="item in cartStore.items" :key="item.key"
                 class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
-                  :class="itemBg(item.productId)">
-                  {{ item.emoji }}
+                <div class="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0">
+                  <img v-if="item.image" :src="`/storage/${item.image}`" :alt="item.name"
+                    class="w-full h-full object-cover" />
+                  <div v-else :class="['w-full h-full flex items-center justify-center text-xl', itemBg(item.productId)]">
+                    {{ item.emoji }}
+                  </div>
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-semibold truncate" style="color:#0F0F1A;">{{ item.name }}</p>

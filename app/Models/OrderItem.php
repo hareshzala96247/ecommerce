@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\ProductVariation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    protected $fillable = ['order_id', 'product_id', 'product_name', 'price', 'quantity'];
+    protected $fillable = ['order_id', 'product_id', 'variation_id', 'product_name', 'price', 'quantity'];
 
     protected $casts = ['price' => 'decimal:2'];
 
@@ -19,5 +20,10 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function variation(): BelongsTo
+    {
+        return $this->belongsTo(ProductVariation::class);
     }
 }

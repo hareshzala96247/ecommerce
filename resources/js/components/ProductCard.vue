@@ -188,6 +188,7 @@ const handleQuickAction = () => {
     productId: props.product.id,
     name:      props.product.name,
     slug:      props.product.slug,
+    image:     props.product.image ?? null,
     emoji:     props.product.emoji ?? '🛍️',
     price:     props.product.price,
     qty:       1,

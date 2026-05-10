@@ -50,11 +50,14 @@
               class="bg-white rounded-2xl p-4 flex items-start gap-4"
               style="border:1px solid rgba(0,0,0,0.06);">
 
-              <!-- Emoji thumbnail -->
+              <!-- Product thumbnail -->
               <RouterLink :to="`/product/${item.slug}`"
-                class="w-20 h-20 rounded-xl flex items-center justify-center flex-shrink-0 text-3xl transition-transform duration-200 hover:scale-105"
-                :class="itemBg(item.productId)">
-                {{ item.emoji }}
+                class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 transition-transform duration-200 hover:scale-105">
+                <img v-if="item.image" :src="`/storage/${item.image}`" :alt="item.name"
+                  class="w-full h-full object-cover" />
+                <div v-else :class="['w-full h-full flex items-center justify-center text-3xl', itemBg(item.productId)]">
+                  {{ item.emoji }}
+                </div>
               </RouterLink>
 
               <!-- Info -->

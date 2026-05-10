@@ -16,7 +16,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return response()->json(['data' => $order->load('items')]);
+        return response()->json(['data' => $order->load('items.product:id,image,emoji', 'items.variation:id,image')]);
     }
 
     public function updateStatus(Request $request, Order $order)

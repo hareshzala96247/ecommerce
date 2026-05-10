@@ -483,6 +483,7 @@ function addToCart() {
     productId:      product.value.id,
     name:           product.value.name,
     slug:           product.value.slug,
+    image:          selectedVariation.value?.image ?? product.value.image ?? null,
     emoji:          product.value.emoji ?? '🛍️',
     price,
     qty:            qty.value,

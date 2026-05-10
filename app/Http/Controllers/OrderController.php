@@ -86,6 +86,7 @@ class OrderController extends Controller
             foreach ($resolvedItems as $item) {
                 $order->items()->create([
                     'product_id'   => $item['product_id'],
+                    'variation_id' => $item['variation_id'] ?? null,
                     'product_name' => $item['name'],
                     'price'        => $item['price'],
                     'quantity'     => $item['qty'],
@@ -110,7 +111,7 @@ class OrderController extends Controller
             'is_guest'       => $guestToken !== null,
         ]);
 
-        $response = ['order' => $order->load('items')];
+        $response = ['order' => $order->load('items.product:id,image,emoji', 'items.variation:id,image')];
         if ($guestToken) {
             // Store in session so the confirmation page doesn't need to expose the token in the URL
             session(['guest_token_' . $order->id => $guestToken]);
@@ -123,7 +124,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::where('user_id', auth()->id())
-            ->with('items')
+            ->with('items.product:id,image,emoji', 'items.variation:id,image')
             ->latest()
             ->get();
 
@@ -148,6 +149,6 @@ class OrderController extends Controller
             }
         }
 
-        return response()->json(['data' => $order->load('items')]);
+        return response()->json(['data' => $order->load('items.product:id,image,emoji', 'items.variation:id,image')]);
     }
 }

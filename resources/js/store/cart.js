@@ -18,13 +18,13 @@ export const cartSubtotal = computed(() =>
     cartStore.items.reduce((sum, item) => sum + item.price * item.qty, 0)
 );
 
-export function addToCart({ productId, name, slug, emoji, price, qty = 1, variationId = null, variationLabel = '' }) {
+export function addToCart({ productId, name, slug, image = null, emoji, price, qty = 1, variationId = null, variationLabel = '' }) {
     const key = variationId ? `${productId}_${variationId}` : `${productId}`;
     const existing = cartStore.items.find(i => i.key === key);
     if (existing) {
         existing.qty += qty;
     } else {
-        cartStore.items.push({ key, productId, variationId, name, slug, emoji, price: parseFloat(price), qty, variationLabel });
+        cartStore.items.push({ key, productId, variationId, name, slug, image, emoji, price: parseFloat(price), qty, variationLabel });
     }
     persist();
 }
