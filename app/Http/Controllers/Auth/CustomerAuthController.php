@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeEmail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerAuthController extends Controller
 {
@@ -26,6 +29,12 @@ class CustomerAuthController extends Controller
 
         Auth::login($user);
         $request->session()->regenerate();
+
+        try {
+            Mail::to($user->email)->send(new WelcomeEmail($user));
+        } catch (\Throwable $e) {
+            Log::warning('welcome_email_failed', ['user_id' => $user->id, 'error' => $e->getMessage()]);
+        }
 
         return response()->json(['user' => $user], 201);
     }

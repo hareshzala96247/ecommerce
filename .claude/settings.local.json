@@ -55,7 +55,11 @@
       "PowerShell(Get-Content *)",
       "Bash(dir D:\\\\wamp64\\\\www\\\\ecommerce\\\\database\\\\migrations\\\\*order*)",
       "PowerShell(Set-Location D:\\\\wamp64\\\\www\\\\ecommerce; php artisan tinker --execute=\"App\\\\Models\\\\Order::with\\('items.product:id,image,emoji','items.variation:id,image'\\)->find\\(8\\)?->items->each\\(fn\\(\\\\$i\\)=>dump\\(['name'=>\\\\$i->product_name,'vid'=>\\\\$i->variation_id,'p_img'=>\\\\$i->product?->image,'v_img'=>\\\\$i->variation?->image]\\)\\)\" 2>&1)",
-      "Bash(Remove-Item *)"
+      "Bash(Remove-Item *)",
+      "Bash(New-Item -ItemType Directory -Force -Path \"D:\\\\wamp64\\\\www\\\\ecommerce\\\\resources\\\\views\\\\emails\")",
+      "Bash(Out-Null)",
+      "Bash(Write-Output \"done\")",
+      "PowerShell(New-Item *)"
     ]
   }
 }
