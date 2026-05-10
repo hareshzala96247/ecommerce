@@ -15,12 +15,12 @@
         </div>
       </div>
       <!-- Close -->
-      <button @click="closed = true"
+      <!-- <button @click="closed = true"
         class="flex-shrink-0 w-9 h-full flex items-center justify-center text-white/40 hover:text-white transition-colors duration-200">
         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
         </svg>
-      </button>
+      </button> -->
     </div>
     <div class="absolute inset-0 pointer-events-none shimmer-overlay"></div>
   </div>

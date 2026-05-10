@@ -47,8 +47,10 @@
           <!-- LEFT: Product image/gallery -->
           <div class="lg:sticky lg:top-24 self-start">
             <!-- Main image -->
-            <div class="relative rounded-3xl overflow-hidden aspect-square"
-              :class="displayImageUrl ? '' : bg" style="min-height:320px;">
+            <div class="relative rounded-3xl overflow-hidden aspect-square group"
+              :class="[displayImageUrl ? 'cursor-zoom-in' : '', displayImageUrl ? '' : bg]"
+              style="min-height:320px;"
+              @click="displayImageUrl && openLightbox()">
               <div class="absolute inset-0 img-shine pointer-events-none z-10"></div>
 
               <!-- Real image -->
@@ -68,6 +70,33 @@
               <!-- Discount chip -->
               <div v-if="discount" class="absolute top-5 right-5 z-20 discount-chip">
                 {{ discount }}% OFF
+              </div>
+
+              <!-- Gallery prev / next arrows -->
+              <template v-if="productGallery.length > 1">
+                <button @click.stop="prevImage" aria-label="Previous image"
+                  class="gallery-arrow absolute left-3 top-1/2 -translate-y-1/2 z-20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                </button>
+                <button @click.stop="nextImage" aria-label="Next image"
+                  class="gallery-arrow absolute right-3 top-1/2 -translate-y-1/2 z-20">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </template>
+
+              <!-- Zoom hint (desktop hover) -->
+              <div v-if="displayImageUrl"
+                class="absolute bottom-3 right-3 z-20 w-8 h-8 rounded-lg flex items-center justify-center
+                       opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                style="background:rgba(15,15,26,0.55);">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+                </svg>
               </div>
             </div>
 
@@ -303,10 +332,78 @@
     </section>
   </main>
   </div>
+
+  <!-- Lightbox / full-screen preview -->
+  <Teleport to="body">
+    <Transition name="lb-fade">
+      <div v-if="lightboxOpen"
+        class="fixed inset-0 z-[9999] flex items-center justify-center select-none"
+        style="background:rgba(0,0,0,0.92);"
+        @click.self="closeLightbox">
+
+        <!-- Top bar: counter + close -->
+        <div class="absolute top-0 left-0 right-0 flex items-center justify-between px-5 py-4 z-10"
+          style="background:linear-gradient(to bottom,rgba(0,0,0,0.5),transparent);">
+          <span v-if="lightboxImages.length > 1" class="text-sm font-semibold"
+            style="color:rgba(255,255,255,0.6);">
+            {{ lightboxIndex + 1 }} / {{ lightboxImages.length }}
+          </span>
+          <span v-else></span>
+          <button @click="closeLightbox" class="lb-ctrl-btn ml-auto" aria-label="Close">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Prev -->
+        <button v-if="lightboxImages.length > 1" @click="lightboxPrev"
+          class="lb-ctrl-btn absolute left-4 top-1/2 -translate-y-1/2 z-10" aria-label="Previous">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <!-- Next -->
+        <button v-if="lightboxImages.length > 1" @click="lightboxNext"
+          class="lb-ctrl-btn absolute right-4 top-1/2 -translate-y-1/2 z-10" aria-label="Next">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <!-- Main image with crossfade on change -->
+        <div class="w-full h-full flex items-center justify-center px-16 py-20">
+          <Transition name="lb-img" mode="out-in">
+            <img :key="lightboxIndex"
+              :src="lightboxImages[lightboxIndex]"
+              :alt="product?.name"
+              class="max-h-[80vh] max-w-full object-contain rounded-2xl"
+              style="box-shadow:0 24px 80px rgba(0,0,0,0.6);"
+              @click.stop />
+          </Transition>
+        </div>
+
+        <!-- Bottom thumbnail strip -->
+        <div v-if="lightboxImages.length > 1"
+          class="absolute bottom-0 left-0 right-0 flex justify-center gap-2 px-4 pb-5 pt-6 z-10"
+          style="background:linear-gradient(to top,rgba(0,0,0,0.65),transparent);">
+          <button v-for="(url, i) in lightboxImages" :key="i"
+            @click="lightboxIndex = i"
+            class="flex-shrink-0 w-14 h-14 rounded-xl overflow-hidden transition-all duration-200"
+            :style="lightboxIndex === i
+              ? 'border:2.5px solid #fff; opacity:1; transform:scale(1.08);'
+              : 'border:2.5px solid rgba(255,255,255,0.2); opacity:0.5;'">
+            <img :src="url" :alt="`${i + 1}`" class="w-full h-full object-cover" />
+          </button>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
 </template>
 
 <script setup>
-import { ref, reactive, computed, watch, onMounted } from 'vue';
+import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, RouterLink } from 'vue-router';
 import ProductCard from '../components/ProductCard.vue';
 import { settings } from '../store/settings';
@@ -323,7 +420,9 @@ const qty          = ref(1);
 const added        = ref(false);
 const wishlisted   = computed(() => product.value ? isFavorite(product.value.id) : false);
 const selectedAttrs = reactive({});
-const activeThumb   = ref(null);
+const activeThumb    = ref(null);
+const lightboxOpen   = ref(false);
+const lightboxIndex  = ref(0);
 
 // All images in display order: main image + gallery
 const productGallery = computed(() => {
@@ -334,6 +433,16 @@ const productGallery = computed(() => {
     urls.push(`/storage/${img.path}`);
   }
   return urls;
+});
+
+// Lightbox image list: active variation image first, then product gallery
+const lightboxImages = computed(() => {
+  const imgs = [];
+  if (selectedVariation.value?.image) imgs.push(`/storage/${selectedVariation.value.image}`);
+  for (const url of productGallery.value) {
+    if (!imgs.includes(url)) imgs.push(url);
+  }
+  return imgs;
 });
 
 // The gallery thumbnail that is "selected" (defaults to first)
@@ -457,7 +566,14 @@ async function fetchProduct(slug) {
   }
 }
 
-onMounted(() => fetchProduct(route.params.slug));
+onMounted(() => {
+  fetchProduct(route.params.slug);
+  window.addEventListener('keydown', onKeydown);
+});
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown);
+  document.body.style.overflow = '';
+});
 watch(() => route.params.slug, (slug) => {
   if (slug) {
     Object.keys(selectedAttrs).forEach(k => delete selectedAttrs[k]);
@@ -465,6 +581,46 @@ watch(() => route.params.slug, (slug) => {
     fetchProduct(slug);
   }
 });
+
+function openLightbox() {
+  if (!displayImageUrl.value) return;
+  const idx = lightboxImages.value.indexOf(displayImageUrl.value);
+  lightboxIndex.value = idx >= 0 ? idx : 0;
+  lightboxOpen.value  = true;
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightboxOpen.value = false;
+  document.body.style.overflow = '';
+}
+function lightboxNext() {
+  const len = lightboxImages.value.length;
+  if (!len) return;
+  lightboxIndex.value = (lightboxIndex.value + 1) % len;
+}
+function lightboxPrev() {
+  const len = lightboxImages.value.length;
+  if (!len) return;
+  lightboxIndex.value = (lightboxIndex.value - 1 + len) % len;
+}
+function nextImage() {
+  const g = productGallery.value;
+  if (g.length < 2) return;
+  const cur = g.indexOf(effectiveThumb.value);
+  activeThumb.value = g[(cur + 1) % g.length];
+}
+function prevImage() {
+  const g = productGallery.value;
+  if (g.length < 2) return;
+  const cur = g.indexOf(effectiveThumb.value);
+  activeThumb.value = g[(cur - 1 + g.length) % g.length];
+}
+function onKeydown(e) {
+  if (!lightboxOpen.value) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowRight') lightboxNext();
+  if (e.key === 'ArrowLeft')  lightboxPrev();
+}
 
 function addToCart() {
   if (added.value) return;
@@ -607,6 +763,35 @@ function toggleFav() {
 .btn-swap-enter-active, .btn-swap-leave-active { transition: all 0.18s ease; }
 .btn-swap-enter-from { opacity: 0; transform: translateY(6px); }
 .btn-swap-leave-to   { opacity: 0; transform: translateY(-6px); }
+
+/* ── Gallery arrows ── */
+.gallery-arrow {
+  @apply w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  color: #0F0F1A;
+  opacity: 0.75;
+}
+.gallery-arrow:hover { opacity: 1; background: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+
+/* ── Lightbox overlay fade ── */
+.lb-fade-enter-active, .lb-fade-leave-active { transition: opacity 0.25s ease; }
+.lb-fade-enter-from,   .lb-fade-leave-to     { opacity: 0; }
+
+/* ── Lightbox image crossfade ── */
+.lb-img-enter-active, .lb-img-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
+.lb-img-enter-from { opacity: 0; transform: scale(0.96); }
+.lb-img-leave-to   { opacity: 0; transform: scale(1.03); }
+
+/* ── Lightbox control buttons ── */
+.lb-ctrl-btn {
+  @apply w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.lb-ctrl-btn:hover { background: rgba(255,255,255,0.22); }
 
 /* ── Variation pills ── */
 .variation-pill {
