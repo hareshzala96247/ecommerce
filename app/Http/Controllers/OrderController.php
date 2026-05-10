@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmedEmail;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -110,6 +112,12 @@ class OrderController extends Controller
             'customer_email' => $order->customer_email,
             'is_guest'       => $guestToken !== null,
         ]);
+
+        try {
+            Mail::to($order->customer_email)->send(new OrderConfirmedEmail($order));
+        } catch (\Throwable $e) {
+            Log::warning('order_confirmed_email_failed', ['order_id' => $order->id, 'error' => $e->getMessage()]);
+        }
 
         $response = ['order' => $order->load('items.product:id,image,emoji', 'items.variation:id,image')];
         if ($guestToken) {

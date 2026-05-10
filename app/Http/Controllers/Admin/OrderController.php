@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderStatusUpdatedEmail;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -34,6 +36,15 @@ class OrderController extends Controller
             'from'     => $previous,
             'to'       => $request->status,
         ]);
+
+        // Send notification for all statuses except pending (covered by order confirmation)
+        if ($request->status !== 'pending') {
+            try {
+                Mail::to($order->customer_email)->send(new OrderStatusUpdatedEmail($order));
+            } catch (\Throwable $e) {
+                Log::warning('order_status_email_failed', ['order_id' => $order->id, 'error' => $e->getMessage()]);
+            }
+        }
 
         return response()->json(['data' => $order, 'message' => 'Order status updated.']);
     }
