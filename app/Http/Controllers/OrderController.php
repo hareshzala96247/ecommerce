@@ -161,7 +161,7 @@ class OrderController extends Controller
     public function show(Request $request, Order $order)
     {
         if (auth()->check()) {
-            if ($order->user_id && $order->user_id !== auth()->id()) {
+            if ($order->user_id !== auth()->id()) {
                 return response()->json(['message' => 'Not found.'], 404);
             }
         } else {

@@ -56,6 +56,10 @@ class AttributeController extends Controller
 
     public function removeValue(Attribute $attribute, AttributeValue $value)
     {
+        if ($value->attribute_id !== $attribute->id) {
+            abort(403);
+        }
+
         $value->delete();
 
         return response()->json(['message' => 'Value removed.']);
