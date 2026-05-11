@@ -48,7 +48,7 @@ class ShopController extends Controller
             default      => $query->latest(),
         };
 
-        $perPage = $request->integer('per_page', 12);
+        $perPage = min($request->integer('per_page', 12), 100);
 
         return response()->json($query->paginate($perPage));
     }

@@ -19,7 +19,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials.'], 401);
         }
 
-        if (Auth::user()->role !== 'admin') {
+        if (strtolower((string) Auth::user()->role) !== 'admin') {
             Auth::logout();
             return response()->json(['message' => 'Access denied. Admins only.'], 403);
         }

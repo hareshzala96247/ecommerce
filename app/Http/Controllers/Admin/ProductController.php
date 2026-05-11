@@ -20,7 +20,7 @@ class ProductController extends Controller
         }
 
         return response()->json(
-            $query->paginate($request->integer('per_page', 15))
+            $query->paginate(min($request->integer('per_page', 15), 100))
         );
     }
 

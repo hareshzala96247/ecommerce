@@ -9,16 +9,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\ValidationException;
 
 class CustomerAuthController extends Controller
 {
     public function register(Request $request)
     {
-        $data = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        try {
+            $data = $request->validate([
+                'name'     => 'required|string|max:255',
+                'email'    => 'required|email|unique:users,email',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+        } catch (ValidationException $e) {
+            // Return a generic message for email errors to prevent account enumeration
+            $errors = $e->errors();
+            if (isset($errors['email'])) {
+                $errors['email'] = ['This email address cannot be used for registration.'];
+            }
+            throw ValidationException::withMessages($errors);
+        }
 
         $user = User::create([
             'name'     => $data['name'],

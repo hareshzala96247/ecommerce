@@ -39,6 +39,7 @@ class OrderController extends Controller
         $products   = Product::whereIn('id', collect($data['items'])->pluck('product_id')->unique())->get()->keyBy('id');
         $variations = ProductVariation::whereIn('id', collect($data['items'])->pluck('variation_id')->filter()->unique())->get()->keyBy('id');
 
+        // Build resolved items with server-side prices; stock check deferred to the transaction
         $resolvedItems = [];
         foreach ($data['items'] as $item) {
             $vid = $item['variation_id'] ?? null;
@@ -47,16 +48,9 @@ class OrderController extends Controller
                 if ($variation->product_id !== $item['product_id']) {
                     throw ValidationException::withMessages(['items' => ['Invalid product configuration.']]);
                 }
-                if ($variation->stock !== null && $variation->stock < $item['qty']) {
-                    throw ValidationException::withMessages(['items' => ["Insufficient stock for: {$item['name']}"]]);
-                }
                 $price = (float) $variation->price;
             } elseif ($products->has($item['product_id'])) {
-                $product = $products[$item['product_id']];
-                if ($product->stock !== null && $product->stock < $item['qty']) {
-                    throw ValidationException::withMessages(['items' => ["Insufficient stock for: {$item['name']}"]]);
-                }
-                $price = (float) $product->price;
+                $price = (float) $products[$item['product_id']]->price;
             } else {
                 throw ValidationException::withMessages(['items' => ['Unable to verify price for one or more items.']]);
             }
@@ -68,7 +62,32 @@ class OrderController extends Controller
         $total      = round($subtotal + $shipping, 2);
         $guestToken = auth()->check() ? null : Str::random(40);
 
-        $order = DB::transaction(function () use ($data, $guestToken, $total, $resolvedItems, $variations, $products) {
+        $order = DB::transaction(function () use ($data, $guestToken, $total, $resolvedItems) {
+            // Re-fetch with a write lock so concurrent orders cannot both pass the stock check
+            $productIds   = collect($resolvedItems)->pluck('product_id')->unique()->values()->all();
+            $variationIds = collect($resolvedItems)->pluck('variation_id')->filter()->unique()->values()->all();
+
+            $lockedProducts   = Product::whereIn('id', $productIds)->lockForUpdate()->get()->keyBy('id');
+            $lockedVariations = $variationIds
+                ? ProductVariation::whereIn('id', $variationIds)->lockForUpdate()->get()->keyBy('id')
+                : collect();
+
+            // Authoritative stock check inside the lock
+            foreach ($resolvedItems as $item) {
+                $vid = $item['variation_id'] ?? null;
+                if ($vid && $lockedVariations->has($vid)) {
+                    $v = $lockedVariations[$vid];
+                    if ($v->stock !== null && $v->stock < $item['qty']) {
+                        throw ValidationException::withMessages(['items' => ["Insufficient stock for: {$item['name']}"]]);
+                    }
+                } elseif ($lockedProducts->has($item['product_id'])) {
+                    $p = $lockedProducts[$item['product_id']];
+                    if ($p->stock !== null && $p->stock < $item['qty']) {
+                        throw ValidationException::withMessages(['items' => ["Insufficient stock for: {$item['name']}"]]);
+                    }
+                }
+            }
+
             $order = Order::create([
                 'user_id'        => auth()->id(),
                 'guest_token'    => $guestToken ? hash('sha256', $guestToken) : null,
@@ -95,10 +114,10 @@ class OrderController extends Controller
                 ]);
 
                 $vid = $item['variation_id'] ?? null;
-                if ($vid && $variations->has($vid)) {
-                    $variations[$vid]->decrement('stock', $item['qty']);
-                } elseif ($products->has($item['product_id'])) {
-                    $products[$item['product_id']]->decrement('stock', $item['qty']);
+                if ($vid && $lockedVariations->has($vid)) {
+                    $lockedVariations[$vid]->decrement('stock', $item['qty']);
+                } elseif ($lockedProducts->has($item['product_id'])) {
+                    $lockedProducts[$item['product_id']]->decrement('stock', $item['qty']);
                 }
             }
 
