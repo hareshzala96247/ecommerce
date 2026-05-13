@@ -10,6 +10,15 @@ class ShopController extends Controller
 {
     public function products(Request $request)
     {
+        $request->validate([
+            'search'        => 'nullable|string|max:100',
+            'tab'           => 'nullable|string|in:trending,new,bestsellers',
+            'category'      => 'nullable|integer',
+            'category_slug' => 'nullable|string|max:100',
+            'sort'          => 'nullable|string|in:latest,price_asc,price_desc,name',
+            'per_page'      => 'nullable|integer|min:1|max:100',
+        ]);
+
         $query = Product::with('category')
             ->withMin('variations', 'price')
             ->withMax('variations', 'price')

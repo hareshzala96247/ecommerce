@@ -42,13 +42,13 @@ class SettingController extends Controller
             'social_youtube'   => 'nullable|url|max:200',
             'meta_title'       => 'nullable|string|max:150',
             'meta_description' => 'nullable|string|max:300',
-            'logo'             => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:1024',
-            'favicon'          => 'nullable|image|mimes:ico,png,svg|max:256',
+            'logo'             => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
+            'favicon'          => 'nullable|image|mimes:ico,png|max:256',
         ]);
 
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
-            $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+            $allowed = ['image/jpeg', 'image/png', 'image/webp'];
             if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
                 abort(422, 'Invalid logo file.');
             }
@@ -61,7 +61,7 @@ class SettingController extends Controller
 
         if ($request->hasFile('favicon')) {
             $file = $request->file('favicon');
-            $allowed = ['image/png', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon'];
+            $allowed = ['image/png', 'image/x-icon', 'image/vnd.microsoft.icon'];
             if (!in_array(mime_content_type($file->getRealPath()), $allowed, true)) {
                 abort(422, 'Invalid favicon file.');
             }

@@ -59,7 +59,12 @@
       "Bash(New-Item -ItemType Directory -Force -Path \"D:\\\\wamp64\\\\www\\\\ecommerce\\\\resources\\\\views\\\\emails\")",
       "Bash(Out-Null)",
       "Bash(Write-Output \"done\")",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "Bash(git ls-tree *)",
+      "Bash(findstr /I \"env config secret credential key\")",
+      "Bash(grep -iE \"\\\\.env|secret|credential|\\\\.key$\")",
+      "Bash(composer audit *)",
+      "Bash(npm audit *)"
     ]
   }
 }

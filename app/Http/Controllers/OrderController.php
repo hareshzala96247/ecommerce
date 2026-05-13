@@ -148,12 +148,12 @@ class OrderController extends Controller
         return response()->json($response, 201);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $orders = Order::where('user_id', auth()->id())
             ->with('items.product:id,image,emoji', 'items.variation:id,image')
             ->latest()
-            ->get();
+            ->paginate(min($request->integer('per_page', 15), 50));
 
         return response()->json(['data' => $orders]);
     }
