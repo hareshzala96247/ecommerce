@@ -23,8 +23,8 @@
             <!-- Benefits list -->
             <ul class="space-y-2.5 text-sm inline-block text-left">
               <li v-for="b in benefits" :key="b" class="flex items-center gap-2.5 text-blue-100/80">
-                <span class="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background:rgba(34,197,94,0.2);">
-                  <svg class="w-3 h-3" style="color:#22C55E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span class="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center" style="background:rgba(47,125,90,0.2);">
+                  <svg class="w-3 h-3" style="color:#2F7D5A;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                   </svg>
                 </span>
@@ -46,12 +46,12 @@
                     {{ avatarLetters[i] }}
                   </div>
                 </div>
-                <p class="text-sm" style="color:#374151;">
-                  <span class="font-bold" style="color:#0F0F1A;">25,000+</span> subscribers already
+                <p class="text-sm" style="color:#3F3F3F;">
+                  <span class="font-bold" style="color:#1A1A1A;">25,000+</span> subscribers already
                 </p>
               </div>
 
-              <h3 class="text-xl font-bold mb-5" style="color:#0F0F1A;">Get 10% off your first order</h3>
+              <h3 class="text-xl font-bold mb-5" style="color:#1A1A1A;">Get 10% off your first order</h3>
 
               <form @submit.prevent="subscribe" class="space-y-3">
                 <div class="relative">
@@ -84,7 +84,7 @@
                 </button>
               </form>
 
-              <p class="flex items-center gap-1.5 mt-4 text-xs" style="color:#9CA3AF;">
+              <p class="flex items-center gap-1.5 mt-4 text-xs" style="color:#A8A8A8;">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
@@ -112,7 +112,7 @@ const benefits = [
   'Weekly style tips & lookbooks',
 ];
 
-const avatarColors  = ['#0D6EFD', '#7C3AED', '#FF6B00', '#16a34a'];
+const avatarColors  = ['#1D3FB8', '#1D3FB8', '#B5532C', '#2F7D5A'];
 const avatarLetters = ['A', 'S', 'J', 'M'];
 
 const subscribe = () => {
@@ -127,7 +127,7 @@ const subscribe = () => {
 @reference "../../css/app.css";
 
 /* ── Section ── */
-.nl-section { background: #0F0F1A; }
+.nl-section { background: #1A1A1A; }
 
 /* ── Glass card wrapper ── */
 .nl-card {
@@ -141,7 +141,7 @@ const subscribe = () => {
 /* ── Left side ── */
 .nl-icon-wrap {
   @apply w-12 h-12 rounded-xl flex items-center justify-center;
-  background: #0D6EFD;
+  background: #1D3FB8;
 }
 
 /* ── Right form card ── */
@@ -153,22 +153,22 @@ const subscribe = () => {
 
 .nl-input {
   @apply w-full px-4 py-3.5 rounded-xl text-sm text-gray-800 outline-none transition-all duration-300;
-  border: 1.5px solid #E5E7EB;
-  background: #F9FAFB;
+  border: 1.5px solid #E4E0D8;
+  background: #FAFAF7;
 }
-.nl-input::placeholder { color: #9CA3AF; }
+.nl-input::placeholder { color: #A8A8A8; }
 .nl-input-focus {
-  border-color: #0D6EFD !important;
+  border-color: #1D3FB8 !important;
   background: #fff !important;
-  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+  box-shadow: 0 0 0 3px rgba(29,63,184,0.1);
 }
 
 .nl-submit {
   @apply w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200;
-  background: #0D6EFD;
+  background: #1D3FB8;
 }
-.nl-submit:hover:not(:disabled) { background: #0B5ED7; }
-.nl-submit-done { background: #16a34a !important; }
+.nl-submit:hover:not(:disabled) { background: #16358F; }
+.nl-submit-done { background: #2F7D5A !important; }
 
 .btn-swap-enter-active, .btn-swap-leave-active { transition: all 0.2s ease; }
 .btn-swap-enter-from { opacity: 0; transform: translateY(8px); }

@@ -3,13 +3,13 @@
   <section class="shop-hero">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm mb-4" style="color:#9ca3af;">
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color:#A8A8A8;">
         <RouterLink to="/" class="hover:text-gray-900 transition-colors">Home</RouterLink>
         <span>/</span>
-        <span style="color:#0F0F1A;">Shop</span>
+        <span style="color:#1A1A1A;">Shop</span>
       </nav>
-      <h1 class="text-3xl sm:text-4xl font-bold" style="color:#0F0F1A;">All Products</h1>
-      <p class="text-sm mt-2" style="color:#6b7280;">
+      <h1 class="text-3xl sm:text-4xl font-bold" style="color:#1A1A1A;">All Products</h1>
+      <p class="text-sm mt-2" style="color:#6B6B6B;">
         Discover {{ totalCount > 0 ? totalCount + ' curated' : 'our' }} products across every category
       </p>
     </div>
@@ -95,7 +95,7 @@
       <!-- Empty state -->
       <div v-else class="text-center py-24">
         <div class="text-6xl mb-5">🔍</div>
-        <h3 class="text-xl font-bold mb-2" style="color:#0F0F1A;">No products found</h3>
+        <h3 class="text-xl font-bold mb-2" style="color:#1A1A1A;">No products found</h3>
         <p class="text-gray-400 mb-6">Try a different search or clear your filters.</p>
         <button @click="clearAll" class="btn-primary-sm">Browse all products</button>
       </div>
@@ -239,42 +239,42 @@ function loadMore() {
 .shop-hero {
   @apply relative;
   background: #fff;
-  border-bottom: 1px solid #F3F4F6;
+  border-bottom: 1px solid #F0EDE6;
 }
 
 /* ── Search input ── */
 .search-input {
   @apply w-full pl-11 pr-10 py-3 text-sm rounded-2xl outline-none transition-all duration-300;
-  background: #F5F5F7;
+  background: #F0EDE6;
   border: 1.5px solid transparent;
-  color: #0F0F1A;
+  color: #1A1A1A;
 }
-.search-input::placeholder { color: #9CA3AF; }
+.search-input::placeholder { color: #A8A8A8; }
 .search-input:focus {
   background: #fff;
-  border-color: #0D6EFD;
-  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+  border-color: #1D3FB8;
+  box-shadow: 0 0 0 3px rgba(29,63,184,0.1);
 }
 
 /* ── Sort select ── */
 .sort-select {
   @apply px-4 py-3 text-sm rounded-2xl outline-none transition-all duration-200 cursor-pointer font-medium;
-  background: #F5F5F7;
+  background: #F0EDE6;
   border: 1.5px solid transparent;
-  color: #374151;
+  color: #3F3F3F;
 }
-.sort-select:focus { border-color: #0D6EFD; background: #fff; }
+.sort-select:focus { border-color: #1D3FB8; background: #fff; }
 
 /* ── Category pills ── */
 .cat-pill {
   @apply inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200;
-  background: #F5F5F7;
-  color: #6B7280;
+  background: #F0EDE6;
+  color: #6B6B6B;
   border: 1.5px solid transparent;
 }
-.cat-pill:hover { background: #EBEBEB; color: #374151; }
+.cat-pill:hover { background: #E4E0D8; color: #3F3F3F; }
 .cat-pill-active {
-  background: #0F0F1A;
+  background: #1A1A1A;
   color: #fff;
   border-color: transparent;
 }
@@ -293,18 +293,18 @@ function loadMore() {
 /* ── Buttons ── */
 .btn-primary-sm {
   @apply inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-white text-sm transition-all duration-200;
-  background: #0D6EFD;
+  background: #1D3FB8;
 }
-.btn-primary-sm:hover { background: #0B5ED7; }
+.btn-primary-sm:hover { background: #16358F; }
 
 .load-more-btn {
   @apply inline-flex items-center gap-2.5 font-semibold px-8 py-3.5 rounded-xl text-sm transition-all duration-200 disabled:opacity-60;
-  border: 1.5px solid #E5E7EB;
-  color: #374151;
+  border: 1.5px solid #E4E0D8;
+  color: #3F3F3F;
   background: #fff;
 }
 .load-more-btn:not(:disabled):hover {
-  border-color: #0D6EFD;
-  color: #0D6EFD;
+  border-color: #1D3FB8;
+  color: #1D3FB8;
 }
 </style>

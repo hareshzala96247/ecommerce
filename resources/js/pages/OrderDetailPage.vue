@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-[calc(100vh-120px)] px-4 py-10" style="background:#FAFAFA;">
+  <div class="min-h-[calc(100vh-120px)] px-4 py-10" style="background:#FAFAF7;">
     <div class="max-w-3xl mx-auto">
 
       <!-- Back -->
       <div class="mb-6">
         <RouterLink to="/orders"
           class="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-150"
-          style="color:#6b7280;"
-          @mouseenter="(e) => e.currentTarget.style.color='#0D6EFD'"
-          @mouseleave="(e) => e.currentTarget.style.color='#6b7280'">
+          style="color:#6B6B6B;"
+          @mouseenter="(e) => e.currentTarget.style.color='#1D3FB8'"
+          @mouseleave="(e) => e.currentTarget.style.color='#6B6B6B'">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
           </svg>
@@ -26,11 +26,11 @@
       <!-- Not found -->
       <div v-else-if="!order" class="text-center py-24">
         <div class="text-5xl mb-4">😕</div>
-        <h2 class="text-xl font-bold mb-2" style="color:#0F0F1A;">Order not found</h2>
-        <p class="text-sm mb-6" style="color:#6b7280;">This order doesn't exist or you don't have access to it.</p>
+        <h2 class="text-xl font-bold mb-2" style="color:#1A1A1A;">Order not found</h2>
+        <p class="text-sm mb-6" style="color:#6B6B6B;">This order doesn't exist or you don't have access to it.</p>
         <RouterLink to="/orders"
           class="px-6 py-2.5 rounded-xl text-sm font-bold text-white"
-          style="background:#0D6EFD;">
+          style="background:#1D3FB8;">
           My Orders
         </RouterLink>
       </div>
@@ -41,11 +41,11 @@
         <div class="bg-white rounded-2xl p-6 mb-4" style="border:1px solid rgba(0,0,0,0.06);">
           <div class="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Number</p>
-              <h1 class="text-2xl font-bold" style="color:#0F0F1A;">
+              <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:#A8A8A8;">Order Number</p>
+              <h1 class="text-2xl font-bold" style="color:#1A1A1A;">
                 #{{ String(order.id).padStart(5, '0') }}
               </h1>
-              <p class="text-sm mt-1" style="color:#9ca3af;">Placed on {{ fmtDate(order.created_at) }}</p>
+              <p class="text-sm mt-1" style="color:#A8A8A8;">Placed on {{ fmtDate(order.created_at) }}</p>
             </div>
             <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold capitalize"
               :style="statusStyle(order.status)">
@@ -61,26 +61,26 @@
                 <div class="flex flex-col items-center" style="min-width:0;flex:1;">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
                     :style="stepDone(step.key)
-                      ? 'background:#0D6EFD;'
+                      ? 'background:#1D3FB8;'
                       : stepActive(step.key)
-                        ? 'background:#0D6EFD;'
-                        : 'background:#F3F4F6;'">
+                        ? 'background:#1D3FB8;'
+                        : 'background:#F0EDE6;'">
                     <svg v-if="stepDone(step.key)" class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                     </svg>
                     <span v-else class="text-xs font-bold"
-                      :style="stepActive(step.key) ? 'color:#fff;' : 'color:#9ca3af;'">
+                      :style="stepActive(step.key) ? 'color:#fff;' : 'color:#A8A8A8;'">
                       {{ i + 1 }}
                     </span>
                   </div>
                   <p class="text-[10px] font-semibold mt-1.5 text-center leading-tight"
-                    :style="stepDone(step.key) || stepActive(step.key) ? 'color:#0F0F1A;' : 'color:#9ca3af;'">
+                    :style="stepDone(step.key) || stepActive(step.key) ? 'color:#1A1A1A;' : 'color:#A8A8A8;'">
                     {{ step.label }}
                   </p>
                 </div>
                 <div v-if="i < statusSteps.length - 1"
                   class="h-0.5 flex-1 mb-5 transition-all duration-300"
-                  :style="stepDone(step.key) ? 'background:#0D6EFD;' : 'background:#F3F4F6;'">
+                  :style="stepDone(step.key) ? 'background:#1D3FB8;' : 'background:#F0EDE6;'">
                 </div>
               </template>
             </div>
@@ -89,16 +89,16 @@
 
         <!-- Items -->
         <div class="bg-white rounded-2xl mb-4 overflow-hidden" style="border:1px solid rgba(0,0,0,0.06);">
-          <div class="px-6 py-4" style="border-bottom:1px solid #F3F4F6;">
-            <h2 class="text-base font-bold" style="color:#0F0F1A;">
+          <div class="px-6 py-4" style="border-bottom:1px solid #F0EDE6;">
+            <h2 class="text-base font-bold" style="color:#1A1A1A;">
               Items Ordered
-              <span class="text-sm font-normal ml-1" style="color:#9ca3af;">({{ order.items.length }})</span>
+              <span class="text-sm font-normal ml-1" style="color:#A8A8A8;">({{ order.items.length }})</span>
             </h2>
           </div>
           <div class="divide-y divide-gray-50">
             <div v-for="item in order.items" :key="item.id"
               class="flex items-center gap-4 px-6 py-4">
-              <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0" style="background:#F5F5F7;">
+              <div class="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0" style="background:#F0EDE6;">
                 <img v-if="item.variation?.image || item.product?.image"
                   :src="`/storage/${item.variation?.image ?? item.product.image}`"
                   :alt="item.product_name" class="w-full h-full object-cover" />
@@ -107,31 +107,31 @@
                 </div>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold truncate" style="color:#0F0F1A;">{{ item.product_name }}</p>
-                <p class="text-xs mt-0.5" style="color:#9ca3af;">
+                <p class="text-sm font-semibold truncate" style="color:#1A1A1A;">{{ item.product_name }}</p>
+                <p class="text-xs mt-0.5" style="color:#A8A8A8;">
                   ${{ parseFloat(item.price).toFixed(2) }} × {{ item.quantity }}
                 </p>
               </div>
-              <span class="text-sm font-bold flex-shrink-0" style="color:#0F0F1A;">
+              <span class="text-sm font-bold flex-shrink-0" style="color:#1A1A1A;">
                 ${{ (parseFloat(item.price) * item.quantity).toFixed(2) }}
               </span>
             </div>
           </div>
           <!-- Totals -->
-          <div class="px-6 py-4 space-y-2" style="border-top:1px solid #F3F4F6;background:#FAFAFA;">
+          <div class="px-6 py-4 space-y-2" style="border-top:1px solid #F0EDE6;background:#FAFAF7;">
             <div class="flex justify-between text-sm">
-              <span style="color:#6b7280;">Subtotal</span>
-              <span class="font-medium" style="color:#0F0F1A;">${{ subtotal }}</span>
+              <span style="color:#6B6B6B;">Subtotal</span>
+              <span class="font-medium" style="color:#1A1A1A;">${{ subtotal }}</span>
             </div>
             <div class="flex justify-between text-sm">
-              <span style="color:#6b7280;">Shipping</span>
-              <span class="font-medium" :style="shipping === '0.00' ? 'color:#22c55e;' : 'color:#0F0F1A;'">
+              <span style="color:#6B6B6B;">Shipping</span>
+              <span class="font-medium" :style="shipping === '0.00' ? 'color:#22c55e;' : 'color:#1A1A1A;'">
                 {{ shipping === '0.00' ? 'Free' : '$' + shipping }}
               </span>
             </div>
-            <div class="flex justify-between text-base font-bold pt-1" style="border-top:1px solid #E5E7EB;">
-              <span style="color:#0F0F1A;">Total</span>
-              <span style="color:#0F0F1A;">${{ parseFloat(order.total).toFixed(2) }}</span>
+            <div class="flex justify-between text-base font-bold pt-1" style="border-top:1px solid #E4E0D8;">
+              <span style="color:#1A1A1A;">Total</span>
+              <span style="color:#1A1A1A;">${{ parseFloat(order.total).toFixed(2) }}</span>
             </div>
           </div>
         </div>
@@ -141,46 +141,46 @@
 
           <!-- Shipping address -->
           <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-            <h2 class="text-sm font-bold mb-3" style="color:#0F0F1A;">Shipping Address</h2>
+            <h2 class="text-sm font-bold mb-3" style="color:#1A1A1A;">Shipping Address</h2>
             <div class="flex items-start gap-2.5">
-              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#9ca3af;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color:#A8A8A8;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <div class="text-sm space-y-0.5" style="color:#374151;">
-                <p class="font-semibold" style="color:#0F0F1A;">{{ order.customer_name }}</p>
+              <div class="text-sm space-y-0.5" style="color:#3F3F3F;">
+                <p class="font-semibold" style="color:#1A1A1A;">{{ order.customer_name }}</p>
                 <p>{{ order.address }}</p>
                 <p>
                   {{ order.city }}<span v-if="order.state">, {{ order.state }}</span> {{ order.zip }}
                 </p>
                 <p>{{ order.country }}</p>
-                <p v-if="order.phone" style="color:#9ca3af;">{{ order.phone }}</p>
+                <p v-if="order.phone" style="color:#A8A8A8;">{{ order.phone }}</p>
               </div>
             </div>
           </div>
 
           <!-- Customer info -->
           <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-            <h2 class="text-sm font-bold mb-3" style="color:#0F0F1A;">Contact</h2>
+            <h2 class="text-sm font-bold mb-3" style="color:#1A1A1A;">Contact</h2>
             <div class="space-y-2.5 text-sm">
               <div class="flex items-center gap-2.5">
-                <svg class="w-4 h-4 flex-shrink-0" style="color:#9ca3af;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 flex-shrink-0" style="color:#A8A8A8;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
-                <span style="color:#374151;">{{ order.customer_email }}</span>
+                <span style="color:#3F3F3F;">{{ order.customer_email }}</span>
               </div>
               <div v-if="order.phone" class="flex items-center gap-2.5">
-                <svg class="w-4 h-4 flex-shrink-0" style="color:#9ca3af;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 flex-shrink-0" style="color:#A8A8A8;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                 </svg>
-                <span style="color:#374151;">{{ order.phone }}</span>
+                <span style="color:#3F3F3F;">{{ order.phone }}</span>
               </div>
-              <div v-if="order.notes" class="pt-2" style="border-top:1px solid #F3F4F6;">
-                <p class="text-xs font-semibold mb-1" style="color:#9ca3af;">Notes</p>
-                <p style="color:#374151;">{{ order.notes }}</p>
+              <div v-if="order.notes" class="pt-2" style="border-top:1px solid #F0EDE6;">
+                <p class="text-xs font-semibold mb-1" style="color:#A8A8A8;">Notes</p>
+                <p style="color:#3F3F3F;">{{ order.notes }}</p>
               </div>
             </div>
           </div>
@@ -188,18 +188,18 @@
 
         <!-- Payment -->
         <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-          <h2 class="text-sm font-bold mb-3" style="color:#0F0F1A;">Payment Method</h2>
+          <h2 class="text-sm font-bold mb-3" style="color:#1A1A1A;">Payment Method</h2>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center"
-              style="background:#F5F5F7;">
-              <svg class="w-5 h-5" style="color:#6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              style="background:#F0EDE6;">
+              <svg class="w-5 h-5" style="color:#6B6B6B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                   d="M3 10h18M5 6h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/>
               </svg>
             </div>
             <div>
-              <p class="text-sm font-semibold" style="color:#0F0F1A;">Cash on Delivery</p>
-              <p class="text-xs" style="color:#9ca3af;">Pay when your order arrives</p>
+              <p class="text-sm font-semibold" style="color:#1A1A1A;">Cash on Delivery</p>
+              <p class="text-xs" style="color:#A8A8A8;">Pay when your order arrives</p>
             </div>
           </div>
         </div>
@@ -219,11 +219,11 @@ const order   = ref(null);
 const loading = ref(true);
 
 const statusMap = {
-  pending:    { bg: 'rgba(234,179,8,0.12)',  color: '#a16207' },
-  processing: { bg: 'rgba(13,110,253,0.10)', color: '#1d4ed8' },
-  shipped:    { bg: 'rgba(124,58,237,0.10)', color: '#6b21a8' },
-  delivered:  { bg: 'rgba(34,197,94,0.10)',  color: '#166534' },
-  cancelled:  { bg: 'rgba(239,68,68,0.10)',  color: '#991b1b' },
+  pending:    { bg: 'rgba(234,179,8,0.12)',  color: '#8B5A1F' },
+  processing: { bg: 'rgba(29,63,184,0.10)', color: '#16358F' },
+  shipped:    { bg: 'rgba(29,63,184,0.10)', color: '#3F3F3F' },
+  delivered:  { bg: 'rgba(47,125,90,0.10)',  color: '#2F7D5A' },
+  cancelled:  { bg: 'rgba(164,53,26,0.10)',  color: '#7A2412' },
 };
 
 const statusSteps = [

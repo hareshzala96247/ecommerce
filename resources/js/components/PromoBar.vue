@@ -40,7 +40,7 @@ const items = [
 
 <style scoped>
 .promo-bar {
-  background: linear-gradient(90deg, #06061A 0%, #0D6EFD 35%, #7C3AED 65%, #06061A 100%);
+  background: linear-gradient(90deg, #1A1A1A 0%, #1D3FB8 35%, #1D3FB8 65%, #1A1A1A 100%);
   background-size: 300% 100%;
   animation: bg-shift 12s ease-in-out infinite alternate;
 }

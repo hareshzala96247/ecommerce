@@ -55,12 +55,12 @@
 
             <!-- Glow behind card -->
             <div class="absolute -inset-10 rounded-full blur-3xl opacity-20 animate-glow"
-              style="background: radial-gradient(circle, #0D6EFD 30%, #7C3AED 70%);"></div>
+              style="background: radial-gradient(circle, #1D3FB8 30%, #1D3FB8 70%);"></div>
 
             <!-- Main floating card -->
             <div class="hero-card float-anim">
               <!-- Image area -->
-              <div class="relative rounded-2xl overflow-hidden mb-5" style="aspect-ratio:1; background: linear-gradient(135deg, #0D1B3E 0%, #0D6EFD 50%, #7C3AED 100%);">
+              <div class="relative rounded-2xl overflow-hidden mb-5" style="aspect-ratio:1; background: linear-gradient(135deg, #0D1B3E 0%, #1D3FB8 50%, #1D3FB8 100%);">
                 <div class="absolute inset-0 shine-sweep"></div>
                 <div class="w-full h-full flex items-center justify-center">
                   <span class="text-[90px] drop-shadow-2xl select-none" style="filter: drop-shadow(0 0 30px rgba(255,255,255,0.3));">👟</span>
@@ -75,7 +75,7 @@
                 <h3 class="text-white font-extrabold text-lg leading-snug">Air Max Runner X</h3>
                 <div class="flex items-center gap-2 mt-1 mb-4">
                   <div class="flex gap-0.5">
-                    <svg v-for="i in 5" :key="i" class="w-3 h-3" :style="i<=5?'color:#FF6B00':'color:#374151'" fill="currentColor" viewBox="0 0 24 24">
+                    <svg v-for="i in 5" :key="i" class="w-3 h-3" :style="i<=5?'color:#B5532C':'color:#3F3F3F'" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
                     </svg>
                   </div>
@@ -84,7 +84,7 @@
                 <div class="flex items-center justify-between">
                   <div class="flex items-baseline gap-2">
                     <span class="text-2xl font-extrabold text-white">$79.99</span>
-                    <span class="text-sm line-through" style="color:#374151;">$159.00</span>
+                    <span class="text-sm line-through" style="color:#3F3F3F;">$159.00</span>
                   </div>
                   <button class="add-btn">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ const stats = [
 @reference "../../css/app.css";
 
 /* ── Background ── */
-.hero { background: #06061A; }
+.hero { background: #1A1A1A; }
 
 /* ── Fade-up animation ── */
 .fade-up {
@@ -160,14 +160,14 @@ const stats = [
 }
 .pulse-dot {
   @apply w-2 h-2 rounded-full flex-shrink-0;
-  background: #22C55E;
-  box-shadow: 0 0 0 0 rgba(34,197,94,0.5);
+  background: #2F7D5A;
+  box-shadow: 0 0 0 0 rgba(47,125,90,0.5);
   animation: pulse-ring 2s ease infinite;
 }
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-  70%  { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
-  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+  0%   { box-shadow: 0 0 0 0 rgba(47,125,90,0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(47,125,90,0); }
+  100% { box-shadow: 0 0 0 0 rgba(47,125,90,0); }
 }
 
 /* ── Headline ── */
@@ -181,13 +181,13 @@ const stats = [
 /* ── Buttons ── */
 .btn-primary {
   @apply inline-flex items-center justify-center gap-2.5 font-semibold px-7 py-3.5 rounded-xl text-white transition-all duration-200;
-  background: #0D6EFD;
-  box-shadow: 0 4px 16px -4px rgba(13,110,253,0.4);
+  background: #1D3FB8;
+  box-shadow: 0 4px 16px -4px rgba(29,63,184,0.4);
 }
 .btn-primary:hover {
-  background: #0B5ED7;
+  background: #16358F;
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px -4px rgba(13,110,253,0.5);
+  box-shadow: 0 8px 24px -4px rgba(29,63,184,0.5);
 }
 .btn-primary:active { transform: translateY(0); }
 
@@ -244,8 +244,8 @@ const stats = [
 
 .sale-badge {
   @apply text-[10px] font-extrabold px-2.5 py-1 rounded-full text-white tracking-wide;
-  background: #FF6B00;
-  box-shadow: 0 4px 12px rgba(255,107,0,0.5);
+  background: #B5532C;
+  box-shadow: 0 4px 12px rgba(181,83,44,0.5);
   animation: badge-bounce 2s ease-in-out infinite;
 }
 @keyframes badge-bounce {
@@ -255,8 +255,8 @@ const stats = [
 
 .add-btn {
   @apply w-10 h-10 rounded-xl flex items-center justify-center text-white transition-all duration-200 hover:scale-110 active:scale-90;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 6px 20px -4px rgba(13,110,253,0.55);
+  background: linear-gradient(135deg, #1D3FB8, #1D3FB8);
+  box-shadow: 0 6px 20px -4px rgba(29,63,184,0.55);
 }
 
 /* ── Mini chips ── */

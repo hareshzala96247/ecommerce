@@ -1,5 +1,5 @@
 <template>
-  <section id="categories" class="py-24" style="background:#FAFAFA;">
+  <section id="categories" class="py-24" style="background:#FAFAF7;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Header -->
@@ -30,7 +30,7 @@
             <div class="cat-icon-wrap group-hover:cat-icon-active">
               <span class="text-3xl">{{ cat.icon || '🛍️' }}</span>
             </div>
-            <span class="text-sm font-bold text-center leading-tight transition-colors duration-300" style="color:#0F0F1A;">
+            <span class="text-sm font-bold text-center leading-tight transition-colors duration-300" style="color:#1A1A1A;">
               {{ cat.name }}
             </span>
             <span class="text-[11px] font-medium transition-colors duration-300 text-gray-400">
@@ -39,7 +39,7 @@
             <!-- Arrow appears on hover -->
             <div class="h-4 flex items-center">
               <span class="text-[11px] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0"
-                style="color:#0D6EFD;">
+                style="color:#1D3FB8;">
                 Explore
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -93,7 +93,7 @@ onMounted(async () => {
 /* ── Section header ── */
 .section-heading {
   @apply text-3xl font-bold mb-3;
-  color: #0F0F1A;
+  color: #1A1A1A;
 }
 .section-sub {
   @apply text-gray-500 text-base;
@@ -108,7 +108,7 @@ onMounted(async () => {
 .cat-card {
   @apply relative block rounded-2xl overflow-hidden cursor-pointer;
   background: #ffffff;
-  border: 1.5px solid #EBEBEB;
+  border: 1.5px solid #E4E0D8;
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.3s ease;
   animation: fade-up 0.55s ease both;

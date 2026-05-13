@@ -10,7 +10,7 @@
         </div>
 
         <!-- Tab switcher -->
-        <div class="relative flex p-1 rounded-2xl gap-1" style="background:#F3F4F6;">
+        <div class="relative flex p-1 rounded-2xl gap-1" style="background:#F0EDE6;">
           <div class="tab-pill" :style="pillStyle"></div>
           <button
             v-for="(tab, i) in tabs"
@@ -79,7 +79,7 @@ const activeTab  = ref('trending');
 const tabRefs    = ref([]);
 const pillLeft   = ref(4);
 const pillWidth  = ref(100);
-const pillColor  = ref('#0D6EFD');
+const pillColor  = ref('#1D3FB8');
 const viewAllRef = ref(null);
 const magnetX    = ref(0);
 const magnetY    = ref(0);
@@ -153,13 +153,13 @@ const resetMagnet = () => { magnetX.value = 0; magnetY.value = 0; };
 /* ── Section header ── */
 .section-heading {
   @apply text-3xl font-bold;
-  color: #0F0F1A;
+  color: #1A1A1A;
 }
 
 /* ── Tab pill ── */
 .tab-pill {
   @apply absolute top-1 bottom-1 rounded-lg transition-all duration-300;
-  background: #0F0F1A;
+  background: #1A1A1A;
 }
 
 /* ── TransitionGroup ── */
@@ -177,12 +177,12 @@ const resetMagnet = () => { magnetX.value = 0; magnetY.value = 0; };
 /* ── View All button ── */
 .view-all-btn {
   @apply inline-flex items-center justify-center font-semibold px-8 py-3.5 rounded-xl transition-all duration-200;
-  border: 1.5px solid #E5E7EB;
-  color: #374151;
+  border: 1.5px solid #E4E0D8;
+  color: #3F3F3F;
   background: #fff;
 }
 .view-all-btn:hover {
-  border-color: #0D6EFD;
-  color: #0D6EFD;
+  border-color: #1D3FB8;
+  color: #1D3FB8;
 }
 </style>

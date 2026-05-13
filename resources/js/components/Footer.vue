@@ -10,16 +10,16 @@
               class="h-9 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
             <div v-else class="relative w-9 h-9">
               <div class="absolute inset-0 rounded-xl opacity-40 blur-sm group-hover:opacity-60 transition-opacity duration-300"
-                style="background: linear-gradient(135deg, #0D6EFD, #7C3AED);"></div>
+                style="background: linear-gradient(135deg, #1D3FB8, #1D3FB8);"></div>
               <div class="relative w-9 h-9 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
-                style="background: linear-gradient(135deg, #0D6EFD, #7C3AED);">
+                style="background: linear-gradient(135deg, #1D3FB8, #1D3FB8);">
                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h13L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/>
                 </svg>
               </div>
             </div>
           </a>
-          <p class="text-sm leading-relaxed mb-6 max-w-xs" style="color:#6B7280;">
+          <p class="text-sm leading-relaxed mb-6 max-w-xs" style="color:#6B6B6B;">
             {{ settings.site_tagline || 'Your one-stop destination for fashion, electronics, and lifestyle — curated with care, delivered with love.' }}
           </p>
 
@@ -72,7 +72,7 @@
             <a v-for="app in apps" :key="app.name" href="#" class="app-badge">
               <span class="text-2xl">{{ app.icon }}</span>
               <div>
-                <p class="text-[10px] mb-0.5" style="color:#6B7280;">{{ app.sub }}</p>
+                <p class="text-[10px] mb-0.5" style="color:#6B6B6B;">{{ app.sub }}</p>
                 <p class="text-xs font-bold text-white leading-tight">{{ app.name }}</p>
               </div>
             </a>
@@ -82,15 +82,15 @@
     </div>
 
     <!-- Divider + Bottom bar -->
-    <div style="border-top: 1px solid #1F2937;">
+    <div style="border-top: 1px solid #3F3F3F;">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-xs" style="color:#4B5563;">
+        <p class="text-xs" style="color:#525252;">
           © {{ new Date().getFullYear() }} {{ settings.site_name }}, Inc. All rights reserved.
         </p>
-        <div class="flex items-center gap-1 text-xs" style="color:#4B5563;">
+        <div class="flex items-center gap-1 text-xs" style="color:#525252;">
           <span v-for="(link, i) in legalLinks" :key="link" class="flex items-center gap-1">
             <a href="#" class="hover:text-white transition-colors duration-200">{{ link }}</a>
-            <span v-if="i < legalLinks.length - 1" style="color:#374151;">·</span>
+            <span v-if="i < legalLinks.length - 1" style="color:#3F3F3F;">·</span>
           </span>
         </div>
       </div>
@@ -134,28 +134,28 @@ const legalLinks = ['Privacy Policy', 'Terms of Service', 'Cookie Policy'];
 <style scoped>
 @reference "../../css/app.css";
 
-.footer { background: #0A0A14; }
+.footer { background: #1A1A1A; }
 
 .footer-col-title {
   @apply text-xs font-extrabold uppercase tracking-widest mb-5;
-  color: #9CA3AF;
+  color: #A8A8A8;
 }
 
 .footer-link {
   @apply flex items-center text-sm transition-all duration-200;
-  color: #6B7280;
+  color: #6B6B6B;
 }
-.footer-link:hover { color: #E5E7EB; padding-left: 4px; }
+.footer-link:hover { color: #E4E0D8; padding-left: 4px; }
 
 .social-btn {
   @apply w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer;
-  background: #1F2937;
-  border: 1px solid #374151;
-  color: #9CA3AF;
+  background: #3F3F3F;
+  border: 1px solid #3F3F3F;
+  color: #A8A8A8;
 }
 .social-btn:hover {
-  background: #374151;
-  border-color: #4B5563;
+  background: #3F3F3F;
+  border-color: #525252;
   transform: translateY(-3px) scale(1.08);
   box-shadow: 0 8px 20px rgba(0,0,0,0.4);
   color: #fff;
@@ -163,29 +163,29 @@ const legalLinks = ['Privacy Policy', 'Terms of Service', 'Cookie Policy'];
 
 .trust-badge {
   @apply text-[10px] font-semibold px-2.5 py-1 rounded-lg;
-  background: #1F2937;
-  color: #6B7280;
-  border: 1px solid #374151;
+  background: #3F3F3F;
+  color: #6B6B6B;
+  border: 1px solid #3F3F3F;
 }
 
 .contact-row {
   @apply flex items-center gap-3 text-sm;
-  color: #6B7280;
+  color: #6B6B6B;
 }
-.contact-row:hover { color: #9CA3AF; }
+.contact-row:hover { color: #A8A8A8; }
 .contact-icon {
   @apply w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0;
-  background: #1F2937;
+  background: #3F3F3F;
 }
 
 .app-badge {
   @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 flex-1;
-  background: #1F2937;
-  border: 1px solid #374151;
+  background: #3F3F3F;
+  border: 1px solid #3F3F3F;
 }
 .app-badge:hover {
-  border-color: #0D6EFD;
+  border-color: #1D3FB8;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(13,110,253,0.2);
+  box-shadow: 0 8px 24px rgba(29,63,184,0.2);
 }
 </style>

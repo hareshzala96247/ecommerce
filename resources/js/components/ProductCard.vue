@@ -69,12 +69,12 @@
     <!-- Info -->
     <div class="p-4">
       <!-- Category -->
-      <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5" style="color:#0D6EFD;">
+      <p class="text-[10px] font-extrabold uppercase tracking-widest mb-1.5" style="color:#1D3FB8;">
         {{ product.category }}
       </p>
 
       <!-- Name -->
-      <h3 class="text-[13px] font-semibold leading-snug mb-2.5 line-clamp-2" style="color:#0F0F1A;">
+      <h3 class="text-[13px] font-semibold leading-snug mb-2.5 line-clamp-2" style="color:#1A1A1A;">
         {{ product.name }}
       </h3>
 
@@ -82,7 +82,7 @@
       <div v-if="product.rating > 0" class="flex items-center gap-1.5 mb-3">
         <div class="flex gap-0.5">
           <svg v-for="i in 5" :key="i" class="w-3 h-3"
-            :style="i <= Math.round(product.rating) ? 'color:#FF6B00' : 'color:#E5E7EB'"
+            :style="i <= Math.round(product.rating) ? 'color:#B5532C' : 'color:#E4E0D8'"
             fill="currentColor" viewBox="0 0 24 24">
             <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
           </svg>
@@ -98,7 +98,7 @@
           </template>
           <template v-else>
             <span v-if="product.type === 'variable' && product.price" class="text-[10px] font-bold text-gray-400 self-center">From</span>
-            <span class="text-base font-extrabold" style="color:#0F0F1A;">
+            <span class="text-base font-extrabold" style="color:#1A1A1A;">
               {{ product.price ? '$' + product.price : '—' }}
             </span>
             <span v-if="product.originalPrice" class="text-[11px] text-gray-400 line-through">${{ product.originalPrice }}</span>
@@ -204,7 +204,7 @@ const handleQuickAction = () => {
 .pcard {
   @apply relative bg-white cursor-pointer select-none;
   border-radius: 20px;
-  border: 1.5px solid #EBEBEB;
+  border: 1.5px solid #E4E0D8;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   overflow: hidden;
   transform-style: preserve-3d;
@@ -212,8 +212,8 @@ const handleQuickAction = () => {
   transition: box-shadow 0.35s ease, border-color 0.3s ease;
 }
 .pcard:hover {
-  border-color: rgba(13,110,253,0.25);
-  box-shadow: 0 24px 60px -12px rgba(13,110,253,0.18), 0 4px 16px rgba(0,0,0,0.06);
+  border-color: rgba(29,63,184,0.25);
+  box-shadow: 0 24px 60px -12px rgba(29,63,184,0.18), 0 4px 16px rgba(0,0,0,0.06);
 }
 
 .pcard-glare {
@@ -225,7 +225,7 @@ const handleQuickAction = () => {
 .pcard-img-wrap {
   @apply relative overflow-hidden;
   aspect-ratio: 1;
-  background: #F8F9FF;
+  background: #FAFAF7;
 }
 
 /* Badge */
@@ -237,22 +237,22 @@ const handleQuickAction = () => {
   from { transform: scale(0) rotate(-15deg); opacity: 0; }
   to   { transform: scale(1) rotate(0deg);   opacity: 1; }
 }
-.badge-blue   { background: #0D6EFD; color: #fff; }
-.badge-orange { background: #FF6B00; color: #fff; }
-.badge-dark   { background: #0F0F1A; color: #fff; }
+.badge-blue   { background: #1D3FB8; color: #fff; }
+.badge-orange { background: #B5532C; color: #fff; }
+.badge-dark   { background: #1A1A1A; color: #fff; }
 
 /* Wishlist */
 .wishlist-btn {
   @apply absolute top-3 right-3 w-8 h-8 rounded-full bg-white flex items-center justify-center
          transition-all duration-200 hover:scale-110 active:scale-90;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border: 1px solid #EBEBEB;
-  color: #D1D5DB;
+  border: 1px solid #E4E0D8;
+  color: #A8A8A8;
 }
-.wishlist-btn:hover { color: #EF4444; border-color: #FECACA; }
+.wishlist-btn:hover { color: #A4351A; border-color: #E6CFC1; }
 .wished {
-  color: #EF4444;
-  border-color: #FECACA;
+  color: #A4351A;
+  border-color: #E6CFC1;
   animation: heart-pop 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
 @keyframes heart-pop {
@@ -274,25 +274,25 @@ const handleQuickAction = () => {
 .quick-btn {
   @apply w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold transition-all duration-200;
   background: rgba(255,255,255,0.95);
-  color: #0F0F1A;
+  color: #1A1A1A;
   backdrop-filter: blur(8px);
 }
-.quick-btn:hover { background: #0D6EFD; color: #fff; }
-.quick-done { background: #16a34a !important; color: #fff !important; }
+.quick-btn:hover { background: #1D3FB8; color: #fff; }
+.quick-done { background: #2F7D5A !important; color: #fff !important; }
 
 /* Add button */
 .add-btn {
   @apply w-9 h-9 rounded-xl flex items-center justify-center text-white transition-all duration-200 active:scale-90;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 4px 14px -3px rgba(13,110,253,0.5);
+  background: linear-gradient(135deg, #1D3FB8, #1D3FB8);
+  box-shadow: 0 4px 14px -3px rgba(29,63,184,0.5);
 }
 .add-btn:hover {
   transform: scale(1.1) rotate(-8deg);
-  box-shadow: 0 8px 24px -4px rgba(13,110,253,0.65);
+  box-shadow: 0 8px 24px -4px rgba(29,63,184,0.65);
 }
 .add-done {
-  background: #16a34a !important;
-  box-shadow: 0 4px 14px -3px rgba(22,163,74,0.5) !important;
+  background: #2F7D5A !important;
+  box-shadow: 0 4px 14px -3px rgba(47,125,90,0.5) !important;
   animation: done-pop 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
 @keyframes done-pop {

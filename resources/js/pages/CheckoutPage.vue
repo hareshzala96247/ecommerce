@@ -1,19 +1,19 @@
 <template>
-  <div class="min-h-[calc(100vh-120px)] py-10 px-4" style="background:#FAFAFA;">
+  <div class="min-h-[calc(100vh-120px)] py-10 px-4" style="background:#FAFAF7;">
     <div class="max-w-6xl mx-auto">
 
       <!-- Header -->
       <div class="mb-8 flex items-center gap-3">
         <RouterLink to="/cart"
           class="w-9 h-9 rounded-xl flex items-center justify-center"
-          style="background:#fff;border:1px solid #E5E7EB;">
-          <svg class="w-4 h-4" style="color:#6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          style="background:#fff;border:1px solid #E4E0D8;">
+          <svg class="w-4 h-4" style="color:#6B6B6B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
           </svg>
         </RouterLink>
         <div>
-          <h1 class="text-2xl font-bold" style="color:#0F0F1A;">Checkout</h1>
-          <p class="text-sm" style="color:#9ca3af;">Complete your order</p>
+          <h1 class="text-2xl font-bold" style="color:#1A1A1A;">Checkout</h1>
+          <p class="text-sm" style="color:#A8A8A8;">Complete your order</p>
         </div>
       </div>
 
@@ -23,20 +23,20 @@
           <div class="flex items-center gap-2">
             <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300"
               :style="i <= currentStep
-                ? 'background:#0D6EFD;color:#fff;'
-                : 'background:#F5F5F7;color:#9ca3af;'">
+                ? 'background:#1D3FB8;color:#fff;'
+                : 'background:#F0EDE6;color:#A8A8A8;'">
               <svg v-if="i < currentStep" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
               </svg>
               <span v-else>{{ i + 1 }}</span>
             </div>
             <span class="text-sm font-medium hidden sm:block"
-              :style="i <= currentStep ? 'color:#0F0F1A;' : 'color:#9ca3af;'">
+              :style="i <= currentStep ? 'color:#1A1A1A;' : 'color:#A8A8A8;'">
               {{ step }}
             </span>
           </div>
           <div v-if="i < steps.length - 1" class="w-8 sm:w-16 h-px"
-            :style="i < currentStep ? 'background:#0D6EFD;' : 'background:#E5E7EB;'">
+            :style="i < currentStep ? 'background:#1D3FB8;' : 'background:#E4E0D8;'">
           </div>
         </div>
       </div>
@@ -49,9 +49,9 @@
 
             <!-- Contact -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-              <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
+              <h2 class="text-base font-bold mb-5" style="color:#1A1A1A;">
                 <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
-                  style="background:#0D6EFD;">1</span>
+                  style="background:#1D3FB8;">1</span>
                 Contact Information
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -82,9 +82,9 @@
 
             <!-- Shipping Address -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-              <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
+              <h2 class="text-base font-bold mb-5" style="color:#1A1A1A;">
                 <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
-                  style="background:#0D6EFD;">2</span>
+                  style="background:#1D3FB8;">2</span>
                 Shipping Address
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -128,25 +128,25 @@
 
             <!-- Payment (placeholder) -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-              <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
+              <h2 class="text-base font-bold mb-5" style="color:#1A1A1A;">
                 <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
-                  style="background:#0D6EFD;">3</span>
+                  style="background:#1D3FB8;">3</span>
                 Payment Method
               </h2>
               <!-- Cash on delivery -->
               <label class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-150"
-                style="border:1.5px solid #0D6EFD;background:rgba(13,110,253,0.04);">
+                style="border:1.5px solid #1D3FB8;background:rgba(29,63,184,0.04);">
                 <input type="radio" checked class="accent-blue-600 w-4 h-4 flex-shrink-0" />
                 <div>
-                  <p class="text-sm font-semibold" style="color:#0F0F1A;">Cash on Delivery</p>
-                  <p class="text-xs" style="color:#9ca3af;">Pay when your order arrives</p>
+                  <p class="text-sm font-semibold" style="color:#1A1A1A;">Cash on Delivery</p>
+                  <p class="text-xs" style="color:#A8A8A8;">Pay when your order arrives</p>
                 </div>
               </label>
             </div>
 
             <!-- Notes -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
-              <label class="field-label mb-1.5 block">Order Notes <span style="color:#9ca3af;">(optional)</span></label>
+              <label class="field-label mb-1.5 block">Order Notes <span style="color:#A8A8A8;">(optional)</span></label>
               <textarea v-model="form.notes" rows="3"
                 class="field-input resize-none"
                 placeholder="Special delivery instructions, gift messages, etc.">
@@ -156,7 +156,7 @@
             <!-- Error banner -->
             <div v-if="serverError"
               class="px-4 py-3 rounded-xl text-sm font-medium"
-              style="background:#fee2e2;color:#991b1b;border:1px solid #fecaca;">
+              style="background:#F4ECE6;color:#7A2412;border:1px solid #fecaca;">
               {{ serverError }}
             </div>
 
@@ -165,7 +165,7 @@
               class="lg:hidden w-full py-4 rounded-xl font-semibold text-white text-sm transition-all duration-200"
               :style="placing || cartStore.items.length === 0
                 ? 'background:#93c5fd;cursor:not-allowed;'
-                : 'background:#0D6EFD;'">
+                : 'background:#1D3FB8;'">
               {{ placing ? 'Placing Order…' : `Place Order · $${orderTotal.toFixed(2)}` }}
             </button>
           </form>
@@ -174,9 +174,9 @@
         <!-- ── Order Summary ── -->
         <div class="lg:col-span-1">
           <div class="bg-white rounded-2xl p-6 sticky top-24" style="border:1px solid rgba(0,0,0,0.06);">
-            <h2 class="text-base font-bold mb-4" style="color:#0F0F1A;">
+            <h2 class="text-base font-bold mb-4" style="color:#1A1A1A;">
               Order Summary
-              <span class="text-sm font-normal ml-1" style="color:#9ca3af;">({{ cartCount }} items)</span>
+              <span class="text-sm font-normal ml-1" style="color:#A8A8A8;">({{ cartCount }} items)</span>
             </h2>
 
             <!-- Item list -->
@@ -191,31 +191,31 @@
                   </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <p class="text-sm font-semibold truncate" style="color:#0F0F1A;">{{ item.name }}</p>
-                  <p v-if="item.variationLabel" class="text-[11px]" style="color:#9ca3af;">{{ item.variationLabel }}</p>
-                  <p class="text-[11px]" style="color:#9ca3af;">Qty: {{ item.qty }}</p>
+                  <p class="text-sm font-semibold truncate" style="color:#1A1A1A;">{{ item.name }}</p>
+                  <p v-if="item.variationLabel" class="text-[11px]" style="color:#A8A8A8;">{{ item.variationLabel }}</p>
+                  <p class="text-[11px]" style="color:#A8A8A8;">Qty: {{ item.qty }}</p>
                 </div>
-                <span class="text-sm font-bold flex-shrink-0" style="color:#0F0F1A;">
+                <span class="text-sm font-bold flex-shrink-0" style="color:#1A1A1A;">
                   ${{ (item.price * item.qty).toFixed(2) }}
                 </span>
               </div>
             </div>
 
             <!-- Totals -->
-            <div style="border-top:1px solid #F3F4F6;" class="pt-4 space-y-2.5 text-sm">
+            <div style="border-top:1px solid #F0EDE6;" class="pt-4 space-y-2.5 text-sm">
               <div class="flex justify-between">
-                <span style="color:#6b7280;">Subtotal</span>
-                <span class="font-semibold" style="color:#0F0F1A;">${{ cartSubtotal.toFixed(2) }}</span>
+                <span style="color:#6B6B6B;">Subtotal</span>
+                <span class="font-semibold" style="color:#1A1A1A;">${{ cartSubtotal.toFixed(2) }}</span>
               </div>
               <div class="flex justify-between">
-                <span style="color:#6b7280;">Shipping</span>
-                <span class="font-semibold" :style="shipping === 0 ? 'color:#22c55e;' : 'color:#0F0F1A;'">
+                <span style="color:#6B6B6B;">Shipping</span>
+                <span class="font-semibold" :style="shipping === 0 ? 'color:#22c55e;' : 'color:#1A1A1A;'">
                   {{ shipping === 0 ? 'Free' : '$' + shipping.toFixed(2) }}
                 </span>
               </div>
-              <div style="border-top:1px solid #F3F4F6;" class="pt-2.5 flex justify-between font-bold text-base">
-                <span style="color:#0F0F1A;">Total</span>
-                <span style="color:#0F0F1A;">${{ orderTotal.toFixed(2) }}</span>
+              <div style="border-top:1px solid #F0EDE6;" class="pt-2.5 flex justify-between font-bold text-base">
+                <span style="color:#1A1A1A;">Total</span>
+                <span style="color:#1A1A1A;">${{ orderTotal.toFixed(2) }}</span>
               </div>
             </div>
 
@@ -224,7 +224,7 @@
               class="hidden lg:block w-full mt-5 py-4 rounded-xl font-semibold text-white text-sm transition-all duration-200"
               :style="placing || cartStore.items.length === 0
                 ? 'background:#93c5fd;cursor:not-allowed;'
-                : 'background:#0D6EFD;'">
+                : 'background:#1D3FB8;'">
               <span class="flex items-center justify-center gap-2">
                 <svg v-if="placing" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -234,10 +234,10 @@
             </button>
 
             <!-- Trust -->
-            <div class="flex items-center justify-center gap-5 mt-4 pt-4" style="border-top:1px solid #F3F4F6;">
-              <span class="text-[11px] font-medium" style="color:#9ca3af;">Secure checkout</span>
-              <span style="color:#E5E7EB;">·</span>
-              <span class="text-[11px] font-medium" style="color:#9ca3af;">Free returns</span>
+            <div class="flex items-center justify-center gap-5 mt-4 pt-4" style="border-top:1px solid #F0EDE6;">
+              <span class="text-[11px] font-medium" style="color:#A8A8A8;">Secure checkout</span>
+              <span style="color:#E4E0D8;">·</span>
+              <span class="text-[11px] font-medium" style="color:#A8A8A8;">Free returns</span>
             </div>
           </div>
         </div>
@@ -375,26 +375,26 @@ const countries = [
 
 .field-label {
   @apply block text-sm font-semibold mb-1.5;
-  color: #374151;
+  color: #3F3F3F;
 }
 .field-input {
   @apply w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200;
-  border: 1.5px solid #E5E7EB;
-  color: #0F0F1A;
+  border: 1.5px solid #E4E0D8;
+  color: #1A1A1A;
   background: #fff;
 }
-.field-input::placeholder { color: #9ca3af; }
+.field-input::placeholder { color: #A8A8A8; }
 .field-input:focus {
-  border-color: #0D6EFD;
-  box-shadow: 0 0 0 3px rgba(13,110,253,0.1);
+  border-color: #1D3FB8;
+  box-shadow: 0 0 0 3px rgba(29,63,184,0.1);
 }
 .field-error {
-  border-color: #ef4444 !important;
-  box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
+  border-color: #A4351A !important;
+  box-shadow: 0 0 0 3px rgba(164,53,26,0.1) !important;
 }
 .field-err-msg {
   @apply text-[11px] mt-1 font-medium;
-  color: #ef4444;
+  color: #A4351A;
 }
 .field-select {
   appearance: none;

@@ -14,9 +14,9 @@
           <!-- Fallback icon -->
           <div v-else class="relative w-9 h-9">
             <div class="absolute inset-0 rounded-xl opacity-30 blur-sm group-hover:opacity-50 transition-opacity duration-300"
-              style="background: linear-gradient(135deg, #0D6EFD, #7C3AED);"></div>
+              style="background: linear-gradient(135deg, #1D3FB8, #1D3FB8);"></div>
             <div class="relative w-9 h-9 rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300"
-              style="background: linear-gradient(135deg, #0D6EFD, #7C3AED);">
+              style="background: linear-gradient(135deg, #1D3FB8, #1D3FB8);">
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h13L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/>
               </svg>
@@ -28,7 +28,7 @@
         <div class="desktop-search" style="position:absolute;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:0 8px;">
           <div class="relative w-full group">
             <div class="absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-200"
-              :style="searchFocused ? 'color:#0D6EFD' : 'color:#9ca3af'">
+              :style="searchFocused ? 'color:#1D3FB8' : 'color:#A8A8A8'">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
               </svg>
@@ -42,8 +42,8 @@
               @keyup.enter="goSearch"
               class="w-full pl-11 pr-4 py-2.5 text-sm rounded-2xl outline-none transition-all duration-300"
               :style="searchFocused
-                ? 'background:#fff; border: 1.5px solid #0D6EFD; box-shadow: 0 0 0 3px rgba(13,110,253,0.1);'
-                : 'background:#F5F5F7; border: 1.5px solid transparent;'"
+                ? 'background:#fff; border: 1.5px solid #1D3FB8; box-shadow: 0 0 0 3px rgba(29,63,184,0.1);'
+                : 'background:#F0EDE6; border: 1.5px solid transparent;'"
             />
           </div>
         </div>
@@ -53,8 +53,8 @@
 
           <!-- Wishlist -->
           <RouterLink to="/favorites" class="nav-btn relative hidden sm:flex" title="Favorites">
-            <svg class="w-[18px] h-[18px]" :fill="favoritesCount > 0 ? '#EF4444' : 'none'"
-              :stroke="favoritesCount > 0 ? '#EF4444' : 'currentColor'" viewBox="0 0 24 24">
+            <svg class="w-[18px] h-[18px]" :fill="favoritesCount > 0 ? '#A4351A' : 'none'"
+              :stroke="favoritesCount > 0 ? '#A4351A' : 'currentColor'" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.682l1.318-1.364a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"/>
             </svg>
@@ -75,7 +75,7 @@
               :class="accountOpen ? 'nav-btn-active' : ''">
               <span v-if="authStore.user"
                 class="w-[22px] h-[22px] rounded-lg flex items-center justify-center text-white text-[11px] font-black"
-                style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);">
+                style="background:linear-gradient(135deg,#1D3FB8,#1D3FB8);">
                 {{ authStore.user.name.charAt(0).toUpperCase() }}
               </span>
               <svg v-else class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,10 +90,10 @@
 
                 <!-- Logged in state -->
                 <template v-if="authStore.user">
-                  <div class="px-4 py-3 mb-1" style="border-bottom: 1px solid #F3F4F6;">
+                  <div class="px-4 py-3 mb-1" style="border-bottom: 1px solid #F0EDE6;">
                     <p class="text-[11px] text-gray-400 font-medium">Signed in as</p>
-                    <p class="text-sm font-bold truncate" style="color:#0F0F1A;">{{ authStore.user.name }}</p>
-                    <p class="text-[11px] truncate" style="color:#9ca3af;">{{ authStore.user.email }}</p>
+                    <p class="text-sm font-bold truncate" style="color:#1A1A1A;">{{ authStore.user.name }}</p>
+                    <p class="text-[11px] truncate" style="color:#A8A8A8;">{{ authStore.user.email }}</p>
                   </div>
                   <RouterLink to="/account" class="dropdown-item" @click="accountOpen=false">
                     <div class="dropdown-icon"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></div>
@@ -104,17 +104,17 @@
                     My Orders
                   </RouterLink>
                   <RouterLink to="/favorites" class="dropdown-item" @click="accountOpen=false">
-                    <div class="dropdown-icon" style="background:rgba(239,68,68,0.08);color:#ef4444;">
+                    <div class="dropdown-icon" style="background:rgba(164,53,26,0.08);color:#A4351A;">
                       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.682l1.318-1.364a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"/></svg>
                     </div>
                     My Favorites
                     <span v-if="favoritesCount > 0"
                       class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white"
-                      style="background:#EF4444;">{{ favoritesCount }}</span>
+                      style="background:#A4351A;">{{ favoritesCount }}</span>
                   </RouterLink>
-                  <div class="mx-4 my-1.5" style="height:1px; background:#F3F4F6;"></div>
-                  <button @click="handleLogout" class="dropdown-item w-full text-left" style="color:#ef4444;">
-                    <div class="dropdown-icon" style="background:rgba(239,68,68,0.08);color:#ef4444;">
+                  <div class="mx-4 my-1.5" style="height:1px; background:#F0EDE6;"></div>
+                  <button @click="handleLogout" class="dropdown-item w-full text-left" style="color:#A4351A;">
+                    <div class="dropdown-icon" style="background:rgba(164,53,26,0.08);color:#A4351A;">
                       <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/></svg>
                     </div>
                     Sign Out
@@ -123,9 +123,9 @@
 
                 <!-- Guest state -->
                 <template v-else>
-                  <div class="px-4 py-3 mb-1" style="border-bottom: 1px solid #F3F4F6;">
+                  <div class="px-4 py-3 mb-1" style="border-bottom: 1px solid #F0EDE6;">
                     <p class="text-[11px] text-gray-400 font-medium">Welcome</p>
-                    <p class="text-sm font-bold" style="color:#0F0F1A;">Sign in to your account</p>
+                    <p class="text-sm font-bold" style="color:#1A1A1A;">Sign in to your account</p>
                   </div>
                   <RouterLink to="/login" class="dropdown-item" @click="accountOpen=false">
                     <div class="dropdown-icon"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14"/></svg></div>
@@ -135,7 +135,7 @@
                     <div class="dropdown-icon"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg></div>
                     Create Account
                   </RouterLink>
-                  <div class="mx-4 my-1.5" style="height:1px; background:#F3F4F6;"></div>
+                  <div class="mx-4 my-1.5" style="height:1px; background:#F0EDE6;"></div>
                   <RouterLink to="/orders" class="dropdown-item" @click="accountOpen=false">
                     <div class="dropdown-icon"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div>
                     My Orders
@@ -156,12 +156,12 @@
       </div>
 
       <!-- Category Nav strip -->
-      <div class="cat-strip items-center gap-0.5 pb-1.5" style="border-top: 1px solid #F3F4F6;">
+      <div class="cat-strip items-center gap-0.5 pb-1.5" style="border-top: 1px solid #F0EDE6;">
         <!-- Static tabs -->
         <RouterLink to="/shop" class="cat-link">All Products</RouterLink>
         <RouterLink to="/shop?sort=latest" class="cat-link">New Arrivals</RouterLink>
         <RouterLink to="/shop?sort=price_asc" class="cat-link cat-link-hot">
-          <span class="w-1.5 h-1.5 rounded-full mr-1 flex-shrink-0 animate-pulse" style="background:#FF6B00;"></span>
+          <span class="w-1.5 h-1.5 rounded-full mr-1 flex-shrink-0 animate-pulse" style="background:#B5532C;"></span>
           Sale
         </RouterLink>
         <!-- Real categories from API -->
@@ -177,7 +177,7 @@
 
       <!-- Mobile Panel -->
       <Transition name="slide-down">
-        <div v-if="mobileOpen" class="py-4 space-y-3" style="border-top: 1px solid #F3F4F6;">
+        <div v-if="mobileOpen" class="py-4 space-y-3" style="border-top: 1px solid #F0EDE6;">
           <!-- Mobile search -->
           <div class="relative">
             <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,8 +185,8 @@
             </svg>
             <input v-model="searchQuery" type="text" placeholder="Search products..."
               class="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm outline-none"
-              style="background:#F5F5F7; border: 1.5px solid transparent;"
-              @focus="(e) => e.target.style.borderColor='#0D6EFD'"
+              style="background:#F0EDE6; border: 1.5px solid transparent;"
+              @focus="(e) => e.target.style.borderColor='#1D3FB8'"
               @blur="(e) => e.target.style.borderColor='transparent'"
               @keyup.enter="goSearch(); mobileOpen = false"
             />
@@ -261,16 +261,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
 .nav-btn {
   @apply p-2.5 rounded-xl flex items-center justify-center transition-all duration-200 active:scale-90;
-  color: #6b7280;
+  color: #6B6B6B;
 }
-.nav-btn:hover { background: #F5F5F7; color: #0F0F1A; }
-.nav-btn-active { background: rgba(13,110,253,0.08); color: #0D6EFD; }
+.nav-btn:hover { background: #F0EDE6; color: #1A1A1A; }
+.nav-btn-active { background: rgba(29,63,184,0.08); color: #1D3FB8; }
 
 .cart-badge {
   @apply absolute -top-0.5 -right-0.5 w-[17px] h-[17px] rounded-full text-white flex items-center justify-center;
   font-size: 9px;
   font-weight: 800;
-  background: #FF6B00;
+  background: #B5532C;
   animation: badge-pulse 2.5s ease-in-out infinite;
 }
 
@@ -278,39 +278,39 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   @apply absolute -top-0.5 -right-0.5 w-[17px] h-[17px] rounded-full text-white flex items-center justify-center;
   font-size: 9px;
   font-weight: 800;
-  background: #EF4444;
+  background: #A4351A;
 }
 @keyframes badge-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255,107,0,0.45); }
-  50%       { box-shadow: 0 0 0 5px rgba(255,107,0,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(181,83,44,0.45); }
+  50%       { box-shadow: 0 0 0 5px rgba(181,83,44,0); }
 }
 
 .cat-link {
   @apply flex items-center px-3 py-1.5 text-[13px] font-medium rounded-lg transition-all duration-200 whitespace-nowrap relative;
   color: #4b5563;
 }
-.cat-link:hover { background: #F5F5F7; color: #0F0F1A; }
+.cat-link:hover { background: #F0EDE6; color: #1A1A1A; }
 .cat-link::after {
   content: '';
   @apply absolute bottom-0 left-3 right-3 h-0.5 rounded-full scale-x-0 origin-left transition-transform duration-300;
-  background: #0D6EFD;
+  background: #1D3FB8;
 }
 .cat-link:hover::after { transform: scaleX(1); }
-.cat-link-hot { color: #FF6B00; font-weight: 700; }
-.cat-link-hot:hover { background: rgba(255,107,0,0.06); color: #e05c00; }
-.cat-link-hot::after { background: #FF6B00; }
+.cat-link-hot { color: #B5532C; font-weight: 700; }
+.cat-link-hot:hover { background: rgba(181,83,44,0.06); color: #8E3F1A; }
+.cat-link-hot::after { background: #B5532C; }
 
 .dropdown-item {
   @apply flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-150;
-  color: #374151;
+  color: #3F3F3F;
 }
-.dropdown-item:hover { background: #F9FAFB; color: #0D6EFD; }
-.dropdown-item:hover .dropdown-icon { background: rgba(13,110,253,0.1); color: #0D6EFD; }
+.dropdown-item:hover { background: #FAFAF7; color: #1D3FB8; }
+.dropdown-item:hover .dropdown-icon { background: rgba(29,63,184,0.1); color: #1D3FB8; }
 
 .dropdown-icon {
   @apply w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-150 flex-shrink-0;
-  background: #F3F4F6;
-  color: #9ca3af;
+  background: #F0EDE6;
+  color: #A8A8A8;
 }
 
 /* ── Responsive: mobile/tablet (<1024px) → hamburger; desktop (≥1024px) → cat strip ── */
@@ -326,12 +326,12 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
 .mobile-cat-link {
   @apply text-sm py-2.5 px-4 rounded-xl transition-colors duration-150 font-medium;
-  color: #374151;
-  background: #F5F5F7;
+  color: #3F3F3F;
+  background: #F0EDE6;
 }
-.mobile-cat-link:hover { background: rgba(13,110,253,0.08); color: #0D6EFD; }
-.mobile-cat-hot { color: #FF6B00; }
-.mobile-cat-hot:hover { background: rgba(255,107,0,0.06); color: #e05c00; }
+.mobile-cat-link:hover { background: rgba(29,63,184,0.08); color: #1D3FB8; }
+.mobile-cat-hot { color: #B5532C; }
+.mobile-cat-hot:hover { background: rgba(181,83,44,0.06); color: #8E3F1A; }
 
 .dropdown-enter-active { transition: all 0.2s cubic-bezier(0.16,1,0.3,1); }
 .dropdown-leave-active { transition: all 0.15s ease-in; }

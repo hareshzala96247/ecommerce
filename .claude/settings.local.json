@@ -64,7 +64,8 @@
       "Bash(findstr /I \"env config secret credential key\")",
       "Bash(grep -iE \"\\\\.env|secret|credential|\\\\.key$\")",
       "Bash(composer audit *)",
-      "Bash(npm audit *)"
+      "Bash(npm audit *)",
+      "Bash(git checkout *)"
     ]
   }
 }
