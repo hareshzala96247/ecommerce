@@ -18,7 +18,7 @@ class OrderConfirmedEmail extends Mailable implements ShouldQueue
     private string $appName;
     private ?string $logoUrl;
 
-    public function __construct(public Order $order)
+    public function __construct(public Order $order, private ?string $guestToken = null)
     {
         $settings      = Setting::whereIn('key', ['site_name', 'logo'])->pluck('value', 'key');
         $this->appName = $settings->get('site_name') ?: config('app.name');
@@ -39,6 +39,11 @@ class OrderConfirmedEmail extends Mailable implements ShouldQueue
         $subtotal = $order->items->sum(fn ($i) => $i->price * $i->quantity);
         $shipping = round((float) $order->total - $subtotal, 2);
 
+        $orderUrl = rtrim(config('app.url'), '/') . '/orders/' . $order->id;
+        if ($this->guestToken) {
+            $orderUrl .= '?token=' . $this->guestToken;
+        }
+
         return new Content(
             view: 'emails.order-confirmed',
             with: [
@@ -48,7 +53,7 @@ class OrderConfirmedEmail extends Mailable implements ShouldQueue
                 'appName'  => $this->appName,
                 'logoUrl'  => $this->logoUrl,
                 'shopUrl'  => rtrim(config('app.url'), '/') . '/shop',
-                'orderUrl' => rtrim(config('app.url'), '/') . '/orders/' . $order->id,
+                'orderUrl' => $orderUrl,
             ],
         );
     }

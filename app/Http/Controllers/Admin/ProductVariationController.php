@@ -23,14 +23,21 @@ class ProductVariationController extends Controller
     public function generate(Request $request, Product $product)
     {
         $request->validate([
-            'groups'            => 'required|array|min:1',
-            'groups.*'          => 'array|min:1',
+            'groups'            => 'required|array|min:1|max:6',
+            'groups.*'          => 'array|min:1|max:20',
             'groups.*.*'        => 'integer|exists:attribute_values,id',
             'default_price'     => 'required|numeric|min:0',
             'default_stock'     => 'required|integer|min:0',
         ]);
 
         $combinations = $this->cartesian($request->groups);
+
+        if (count($combinations) > 500) {
+            return response()->json([
+                'message' => 'Too many combinations (' . count($combinations) . '). Reduce attribute values or generate in batches.',
+            ], 422);
+        }
+
         $created = 0;
 
         foreach ($combinations as $combo) {

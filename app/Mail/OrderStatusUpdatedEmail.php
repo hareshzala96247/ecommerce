@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\Models\Order;
 use App\Models\Setting;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -85,7 +86,9 @@ class OrderStatusUpdatedEmail extends Mailable implements ShouldQueue
                 'appName'  => $this->appName,
                 'logoUrl'  => $this->logoUrl,
                 'shopUrl'  => rtrim(config('app.url'), '/') . '/shop',
-                'orderUrl' => rtrim(config('app.url'), '/') . '/orders/' . $this->order->id,
+                'orderUrl' => $this->order->user_id === null
+                    ? URL::temporarySignedRoute('orders.show', now()->addDays(7), ['order' => $this->order->id])
+                    : rtrim(config('app.url'), '/') . '/orders/' . $this->order->id,
             ],
         );
     }

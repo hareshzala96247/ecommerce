@@ -67,7 +67,7 @@ import { useRouter } from 'vue-router';
 import axios from 'axios';
 import { setUser } from '../store';
 
-const appName = window.APP_NAME ?? 'Admin';
+const appName = document.querySelector('meta[name="app-name"]')?.content ?? 'Admin';
 
 const router  = useRouter();
 const form    = reactive({ email: '', password: '' });

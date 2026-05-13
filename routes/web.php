@@ -41,7 +41,7 @@ Route::prefix('api/favorites')->middleware('throttle:60,1')->group(function () {
 // Customer Orders API
 Route::prefix('api/orders')->group(function () {
     Route::middleware('throttle:10,1')->post('/', [CustomerOrderController::class, 'store']);  // public: guest checkout
-    Route::middleware('throttle:30,1')->get('/{order}', [CustomerOrderController::class, 'show']); // public: guest order confirmation
+    Route::middleware('throttle:30,1')->get('/{order}', [CustomerOrderController::class, 'show'])->name('orders.show'); // public: guest order confirmation
 });
 Route::middleware('auth')->prefix('api/orders')->group(function () {
     Route::get('/', [CustomerOrderController::class, 'index']);

@@ -142,7 +142,7 @@ import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 import { store, setUser, showToast } from '../store';
 
-const appName = window.APP_NAME ?? 'Admin';
+const appName = document.querySelector('meta[name="app-name"]')?.content ?? 'Admin';
 
 const route  = useRoute();
 const router = useRouter();

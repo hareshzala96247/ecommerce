@@ -28,11 +28,11 @@ class OrderController extends Controller
             'zip'                   => 'required|string|max:20',
             'country'               => 'required|string|max:100',
             'notes'                 => 'nullable|string|max:1000',
-            'items'                 => 'required|array|min:1',
+            'items'                 => 'required|array|min:1|max:50',
             'items.*.product_id'    => ['required', 'integer', Rule::exists('products', 'id')->where('is_active', true)],
             'items.*.variation_id'  => ['nullable', 'integer', Rule::exists('product_variations', 'id')->where('is_active', true)],
             'items.*.name'          => 'required|string|max:500',
-            'items.*.qty'           => 'required|integer|min:1',
+            'items.*.qty'           => 'required|integer|min:1|max:999',
         ]);
 
         // Resolve canonical prices from DB — client-submitted prices are ignored entirely
@@ -133,7 +133,7 @@ class OrderController extends Controller
         ]);
 
         try {
-            Mail::to($order->customer_email)->queue(new OrderConfirmedEmail($order));
+            Mail::to($order->customer_email)->queue(new OrderConfirmedEmail($order, $guestToken));
         } catch (\Throwable $e) {
             Log::warning('order_confirmed_email_failed', ['order_id' => $order->id, 'error' => $e->getMessage()]);
         }
@@ -169,9 +169,10 @@ class OrderController extends Controller
             if ($order->user_id !== null) {
                 return response()->json(['message' => 'Not found.'], 404);
             }
-            // Prefer the session-stored token to avoid URL exposure; fall back to query param
-            $token = session('guest_token_' . $order->id) ?? (string) $request->query('token', '');
-            if (!$order->guest_token || empty($token) || !hash_equals($order->guest_token, hash('sha256', $token))) {
+            // Accept: session token (set at checkout), plain token (from confirmation email), or signed URL (from status emails)
+            $token        = session('guest_token_' . $order->id) ?? (string) $request->query('token', '');
+            $validToken   = $order->guest_token && !empty($token) && hash_equals($order->guest_token, hash('sha256', $token));
+            if (!$validToken && !$request->hasValidSignature()) {
                 return response()->json(['message' => 'Not found.'], 404);
             }
         }
