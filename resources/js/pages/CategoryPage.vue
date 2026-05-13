@@ -1,37 +1,30 @@
 <template>
   <!-- Hero -->
   <section class="cat-hero">
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="ch-orb ch-orb-1"></div>
-      <div class="ch-orb ch-orb-2"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <nav class="flex items-center gap-2 text-sm mb-5 text-white/50">
-        <RouterLink to="/" class="hover:text-white transition-colors">Home</RouterLink>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color:#9ca3af;">
+        <RouterLink to="/" class="hover:text-gray-900 transition-colors">Home</RouterLink>
         <span>/</span>
-        <RouterLink to="/shop" class="hover:text-white transition-colors">Shop</RouterLink>
+        <RouterLink to="/shop" class="hover:text-gray-900 transition-colors">Shop</RouterLink>
         <span>/</span>
-        <span class="text-white/80">{{ category?.name ?? 'Category' }}</span>
+        <span style="color:#0F0F1A;">{{ category?.name ?? 'Category' }}</span>
       </nav>
 
       <!-- Category meta skeleton -->
       <div v-if="catLoading" class="space-y-2">
-        <div class="h-10 w-56 rounded-xl bg-white/10 animate-pulse"></div>
-        <div class="h-5 w-72 rounded-lg bg-white/10 animate-pulse"></div>
+        <div class="h-9 w-56 rounded-xl bg-gray-100 animate-pulse"></div>
+        <div class="h-4 w-72 rounded-lg bg-gray-100 animate-pulse"></div>
       </div>
 
       <template v-else-if="category">
-        <div class="flex items-center gap-4 mb-2">
-          <span class="text-4xl">{{ category.icon || '🛍️' }}</span>
-          <h1 class="text-4xl sm:text-5xl font-extrabold text-white">{{ category.name }}</h1>
-        </div>
-        <p class="text-white/60 text-base">
+        <h1 class="text-3xl sm:text-4xl font-bold" style="color:#0F0F1A;">{{ category.name }}</h1>
+        <p class="text-sm mt-2" style="color:#6b7280;">
           {{ category.products_count }} product{{ category.products_count !== 1 ? 's' : '' }} in this category
         </p>
       </template>
 
       <!-- Not found -->
-      <div v-else class="text-white/80 text-xl font-bold">Category not found</div>
+      <div v-else class="text-xl font-bold" style="color:#0F0F1A;">Category not found</div>
     </div>
   </section>
 
@@ -235,25 +228,9 @@ function loadMore() {
 @reference "../../css/app.css";
 
 .cat-hero {
-  @apply relative overflow-hidden;
-  background: #06061A;
-  min-height: 200px;
-}
-.ch-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.25;
-}
-.ch-orb-1 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, #7C3AED, transparent 70%);
-  top: -200px; left: -100px;
-}
-.ch-orb-2 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, #0D6EFD, transparent 70%);
-  top: -100px; right: 0;
+  @apply relative;
+  background: #fff;
+  border-bottom: 1px solid #F3F4F6;
 }
 
 .search-input {
@@ -283,23 +260,19 @@ function loadMore() {
 }
 
 .btn-primary-sm {
-  @apply inline-flex items-center gap-2 font-bold px-6 py-3 rounded-full text-white text-sm transition-all duration-200;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 6px 20px rgba(13,110,253,0.35);
+  @apply inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-white text-sm transition-all duration-200;
+  background: #0D6EFD;
 }
-.btn-primary-sm:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(13,110,253,0.45); }
+.btn-primary-sm:hover { background: #0B5ED7; }
 
 .load-more-btn {
-  @apply inline-flex items-center gap-2.5 font-bold px-8 py-4 rounded-full text-sm transition-all duration-300 disabled:opacity-60;
-  border: 2px solid #0D6EFD;
-  color: #0D6EFD;
-  background: transparent;
+  @apply inline-flex items-center gap-2.5 font-semibold px-8 py-3.5 rounded-xl text-sm transition-all duration-200 disabled:opacity-60;
+  border: 1.5px solid #E5E7EB;
+  color: #374151;
+  background: #fff;
 }
 .load-more-btn:not(:disabled):hover {
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  border-color: transparent;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(13,110,253,0.35);
+  border-color: #0D6EFD;
+  color: #0D6EFD;
 }
 </style>

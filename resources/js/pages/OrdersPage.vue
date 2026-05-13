@@ -12,19 +12,24 @@
           </svg>
         </RouterLink>
         <div>
-          <h1 class="text-2xl font-black" style="color:#0F0F1A;">My Orders</h1>
+          <h1 class="text-2xl font-bold" style="color:#0F0F1A;">My Orders</h1>
           <p class="text-sm" style="color:#9ca3af;">Track and manage your orders</p>
         </div>
       </div>
 
       <!-- Not logged in -->
       <div v-if="!authStore.user" class="text-center py-24">
-        <div class="text-5xl mb-4">🔒</div>
+        <div class="inline-flex w-20 h-20 rounded-2xl items-center justify-center mb-6" style="background:#F5F5F7;">
+          <svg class="w-10 h-10" style="color:#D1D5DB;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
         <h2 class="text-xl font-bold mb-2" style="color:#0F0F1A;">Sign in to view your orders</h2>
         <p class="text-sm mb-6" style="color:#6b7280;">You need to be logged in to see your order history.</p>
         <RouterLink to="/login"
-          class="px-6 py-2.5 rounded-xl text-sm font-bold text-white"
-          style="background:#0D6EFD;box-shadow:0 4px 12px rgba(13,110,253,0.3);">
+          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-white"
+          style="background:#0D6EFD;">
           Sign In
         </RouterLink>
       </div>
@@ -48,8 +53,8 @@
         <h2 class="text-xl font-bold mb-2" style="color:#0F0F1A;">No orders yet</h2>
         <p class="text-sm mb-6" style="color:#6b7280;">When you place an order it will appear here.</p>
         <RouterLink to="/shop"
-          class="px-6 py-2.5 rounded-xl text-sm font-bold text-white"
-          style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 12px rgba(13,110,253,0.3);">
+          class="px-6 py-2.5 rounded-xl text-sm font-semibold text-white"
+          style="background:#0D6EFD;">
           Start Shopping
         </RouterLink>
       </div>
@@ -63,7 +68,7 @@
           <!-- Order header row -->
           <div class="flex items-start justify-between gap-3 mb-4">
             <div>
-              <p class="text-base font-black" style="color:#0F0F1A;">
+              <p class="text-base font-bold" style="color:#0F0F1A;">
                 #{{ String(order.id).padStart(5, '0') }}
               </p>
               <p class="text-xs mt-0.5" style="color:#9ca3af;">{{ fmtDate(order.created_at) }}</p>
@@ -89,10 +94,10 @@
           <div class="flex items-center justify-between pt-3" style="border-top:1px solid #F3F4F6;">
             <div>
               <span class="text-xs" style="color:#9ca3af;">Total</span>
-              <p class="text-base font-black" style="color:#0D6EFD;">${{ parseFloat(order.total).toFixed(2) }}</p>
+              <p class="text-base font-bold" style="color:#0F0F1A;">${{ parseFloat(order.total).toFixed(2) }}</p>
             </div>
             <RouterLink :to="`/orders/${order.id}`"
-              class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold transition-all duration-150"
+              class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-150"
               style="border:1.5px solid #E5E7EB;color:#374151;"
               @mouseenter="(e) => { e.currentTarget.style.borderColor='#0D6EFD'; e.currentTarget.style.color='#0D6EFD'; }"
               @mouseleave="(e) => { e.currentTarget.style.borderColor='#E5E7EB'; e.currentTarget.style.color='#374151'; }">

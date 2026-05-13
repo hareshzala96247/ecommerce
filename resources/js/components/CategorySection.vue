@@ -3,8 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Header -->
-      <div class="text-center mb-14">
-        <span class="section-tag">Browse</span>
+      <div class="text-center mb-12">
         <h2 class="section-heading">Shop by Category</h2>
         <p class="section-sub">Explore our handpicked collections across every lifestyle</p>
       </div>
@@ -92,16 +91,12 @@ onMounted(async () => {
 @reference "../../css/app.css";
 
 /* ── Section header ── */
-.section-tag {
-  @apply inline-block text-xs font-bold uppercase tracking-[0.2em] mb-3;
-  color: #0D6EFD;
-}
 .section-heading {
-  @apply text-4xl font-extrabold mb-3;
+  @apply text-3xl font-bold mb-3;
   color: #0F0F1A;
 }
 .section-sub {
-  @apply text-gray-400 text-base;
+  @apply text-gray-500 text-base;
 }
 
 /* ── Category cards ── */

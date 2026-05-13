@@ -155,7 +155,7 @@ class OrderController extends Controller
             ->latest()
             ->paginate(min($request->integer('per_page', 15), 50));
 
-        return response()->json(['data' => $orders]);
+        return response()->json($orders);
     }
 
     public function show(Request $request, Order $order)

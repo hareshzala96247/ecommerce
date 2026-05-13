@@ -1,20 +1,7 @@
 <template>
-  <section class="nl-section relative overflow-hidden">
+  <section class="nl-section relative">
 
-    <!-- Background elements -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="nl-orb nl-orb-1"></div>
-      <div class="nl-orb nl-orb-2"></div>
-      <div class="nl-orb nl-orb-3"></div>
-      <!-- Stars -->
-      <span v-for="s in stars" :key="s.id"
-        class="absolute rounded-full bg-white"
-        :style="`width:${s.size}px; height:${s.size}px; left:${s.x}%; top:${s.y}%; opacity:${s.o};
-                 animation: twinkle ${s.d}s ease-in-out ${s.delay}s infinite alternate;`">
-      </span>
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div class="nl-card">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
@@ -26,8 +13,8 @@
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-6 mb-4 leading-tight">
-              Join Our&nbsp;<span class="nl-gradient">Style Community</span>
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mt-6 mb-4 leading-tight">
+              Join our community
             </h2>
             <p class="text-blue-200/70 text-base leading-relaxed mb-8 max-w-sm mx-auto lg:mx-0">
               Get exclusive deals, early access to new arrivals, and weekly style inspiration delivered straight to your inbox.
@@ -64,7 +51,7 @@
                 </p>
               </div>
 
-              <h3 class="text-xl font-extrabold mb-5" style="color:#0F0F1A;">Get 10% off your first order</h3>
+              <h3 class="text-xl font-bold mb-5" style="color:#0F0F1A;">Get 10% off your first order</h3>
 
               <form @submit.prevent="subscribe" class="space-y-3">
                 <div class="relative">
@@ -134,56 +121,13 @@ const subscribe = () => {
   setTimeout(() => { subscribed.value = false; email.value = ''; }, 4000);
 };
 
-const stars = Array.from({ length: 50 }, (_, i) => ({
-  id: i,
-  x:     Math.random() * 100,
-  y:     Math.random() * 100,
-  size:  Math.random() > 0.8 ? 2 : 1,
-  o:     0.15 + Math.random() * 0.4,
-  d:     2 + Math.random() * 4,
-  delay: Math.random() * 4,
-}));
 </script>
 
 <style scoped>
 @reference "../../css/app.css";
 
 /* ── Section ── */
-.nl-section { background: #060616; }
-
-.nl-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.2;
-}
-.nl-orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, #0D6EFD, transparent 70%);
-  top: -200px; left: -150px;
-  animation: orb-float 14s ease-in-out infinite alternate;
-}
-.nl-orb-2 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, #7C3AED, transparent 70%);
-  bottom: -100px; right: -100px;
-  animation: orb-float 18s ease-in-out infinite alternate-reverse;
-}
-.nl-orb-3 {
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, #FF6B00, transparent 70%);
-  top: 50%; left: 50%;
-  animation: orb-float 10s ease-in-out infinite alternate;
-  opacity: 0.1;
-}
-@keyframes orb-float {
-  from { transform: translate(0,0) scale(1); }
-  to   { transform: translate(50px,40px) scale(1.2); }
-}
-@keyframes twinkle {
-  from { opacity: 0.1; transform: scale(0.7); }
-  to   { opacity: 0.7; transform: scale(1.3); }
-}
+.nl-section { background: #0F0F1A; }
 
 /* ── Glass card wrapper ── */
 .nl-card {
@@ -196,15 +140,8 @@ const stars = Array.from({ length: 50 }, (_, i) => ({
 
 /* ── Left side ── */
 .nl-icon-wrap {
-  @apply w-14 h-14 rounded-2xl flex items-center justify-center;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 8px 24px rgba(13,110,253,0.4);
-}
-.nl-gradient {
-  background: linear-gradient(135deg, #60A5FA, #A78BFA, #FF6B00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  @apply w-12 h-12 rounded-xl flex items-center justify-center;
+  background: #0D6EFD;
 }
 
 /* ── Right form card ── */
@@ -227,19 +164,11 @@ const stars = Array.from({ length: 50 }, (_, i) => ({
 }
 
 .nl-submit {
-  @apply w-full py-3.5 rounded-xl font-bold text-sm text-white transition-all duration-300;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 8px 24px rgba(13,110,253,0.4);
+  @apply w-full py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200;
+  background: #0D6EFD;
 }
-.nl-submit:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(13,110,253,0.5);
-}
-.nl-submit:active:not(:disabled) { transform: translateY(0); }
-.nl-submit-done {
-  background: #16a34a !important;
-  box-shadow: 0 8px 24px rgba(22,163,74,0.4) !important;
-}
+.nl-submit:hover:not(:disabled) { background: #0B5ED7; }
+.nl-submit-done { background: #16a34a !important; }
 
 .btn-swap-enter-active, .btn-swap-leave-active { transition: all 0.2s ease; }
 .btn-swap-enter-from { opacity: 0; transform: translateY(8px); }

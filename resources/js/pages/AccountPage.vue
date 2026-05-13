@@ -37,12 +37,12 @@
         <!-- Profile header -->
         <div class="bg-white rounded-2xl p-6 shadow-sm mb-4" style="border:1px solid rgba(0,0,0,0.06);">
           <div class="flex items-center gap-4">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black text-white flex-shrink-0"
-              style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);">
+            <div class="w-16 h-16 rounded-xl flex items-center justify-center text-2xl font-semibold text-white flex-shrink-0"
+              style="background:#0F0F1A;">
               {{ authStore.user.name.charAt(0).toUpperCase() }}
             </div>
             <div class="min-w-0">
-              <h1 class="text-xl font-black truncate" style="color:#0F0F1A;">{{ authStore.user.name }}</h1>
+              <h1 class="text-xl font-bold truncate" style="color:#0F0F1A;">{{ authStore.user.name }}</h1>
               <p class="text-sm truncate" style="color:#6b7280;">{{ authStore.user.email }}</p>
               <span class="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold"
                 style="background:rgba(13,110,253,0.1);color:#0D6EFD;">

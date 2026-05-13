@@ -42,7 +42,7 @@
           <div class="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Number</p>
-              <h1 class="text-2xl font-black" style="color:#0F0F1A;">
+              <h1 class="text-2xl font-bold" style="color:#0F0F1A;">
                 #{{ String(order.id).padStart(5, '0') }}
               </h1>
               <p class="text-sm mt-1" style="color:#9ca3af;">Placed on {{ fmtDate(order.created_at) }}</p>
@@ -61,7 +61,7 @@
                 <div class="flex flex-col items-center" style="min-width:0;flex:1;">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
                     :style="stepDone(step.key)
-                      ? 'background:linear-gradient(135deg,#0D6EFD,#7C3AED);'
+                      ? 'background:#0D6EFD;'
                       : stepActive(step.key)
                         ? 'background:#0D6EFD;'
                         : 'background:#F3F4F6;'">
@@ -129,9 +129,9 @@
                 {{ shipping === '0.00' ? 'Free' : '$' + shipping }}
               </span>
             </div>
-            <div class="flex justify-between text-base font-black pt-1" style="border-top:1px solid #E5E7EB;">
+            <div class="flex justify-between text-base font-bold pt-1" style="border-top:1px solid #E5E7EB;">
               <span style="color:#0F0F1A;">Total</span>
-              <span style="color:#0D6EFD;">${{ parseFloat(order.total).toFixed(2) }}</span>
+              <span style="color:#0F0F1A;">${{ parseFloat(order.total).toFixed(2) }}</span>
             </div>
           </div>
         </div>
@@ -190,8 +190,13 @@
         <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
           <h2 class="text-sm font-bold mb-3" style="color:#0F0F1A;">Payment Method</h2>
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl"
-              style="background:#F5F5F7;">💵</div>
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+              style="background:#F5F5F7;">
+              <svg class="w-5 h-5" style="color:#6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                  d="M3 10h18M5 6h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"/>
+              </svg>
+            </div>
             <div>
               <p class="text-sm font-semibold" style="color:#0F0F1A;">Cash on Delivery</p>
               <p class="text-xs" style="color:#9ca3af;">Pay when your order arrives</p>

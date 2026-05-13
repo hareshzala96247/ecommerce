@@ -12,7 +12,7 @@
           </svg>
         </RouterLink>
         <div>
-          <h1 class="text-2xl font-black" style="color:#0F0F1A;">Checkout</h1>
+          <h1 class="text-2xl font-bold" style="color:#0F0F1A;">Checkout</h1>
           <p class="text-sm" style="color:#9ca3af;">Complete your order</p>
         </div>
       </div>
@@ -21,9 +21,9 @@
       <div class="flex items-center gap-2 mb-8">
         <div v-for="(step, i) in steps" :key="step" class="flex items-center gap-2">
           <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300"
+            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300"
               :style="i <= currentStep
-                ? 'background:linear-gradient(135deg,#0D6EFD,#7C3AED);color:#fff;'
+                ? 'background:#0D6EFD;color:#fff;'
                 : 'background:#F5F5F7;color:#9ca3af;'">
               <svg v-if="i < currentStep" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
@@ -50,8 +50,8 @@
             <!-- Contact -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
               <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
-                <span class="inline-flex w-6 h-6 rounded-lg items-center justify-center text-xs font-black text-white mr-2"
-                  style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);">1</span>
+                <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
+                  style="background:#0D6EFD;">1</span>
                 Contact Information
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -83,8 +83,8 @@
             <!-- Shipping Address -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
               <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
-                <span class="inline-flex w-6 h-6 rounded-lg items-center justify-center text-xs font-black text-white mr-2"
-                  style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);">2</span>
+                <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
+                  style="background:#0D6EFD;">2</span>
                 Shipping Address
               </h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -129,19 +129,18 @@
             <!-- Payment (placeholder) -->
             <div class="bg-white rounded-2xl p-6" style="border:1px solid rgba(0,0,0,0.06);">
               <h2 class="text-base font-bold mb-5" style="color:#0F0F1A;">
-                <span class="inline-flex w-6 h-6 rounded-lg items-center justify-center text-xs font-black text-white mr-2"
-                  style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);">3</span>
+                <span class="inline-flex w-6 h-6 rounded-md items-center justify-center text-xs font-semibold text-white mr-2"
+                  style="background:#0D6EFD;">3</span>
                 Payment Method
               </h2>
-              <!-- Cash on delivery pill -->
+              <!-- Cash on delivery -->
               <label class="flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-150"
                 style="border:1.5px solid #0D6EFD;background:rgba(13,110,253,0.04);">
                 <input type="radio" checked class="accent-blue-600 w-4 h-4 flex-shrink-0" />
                 <div>
-                  <p class="text-sm font-bold" style="color:#0F0F1A;">Cash on Delivery</p>
+                  <p class="text-sm font-semibold" style="color:#0F0F1A;">Cash on Delivery</p>
                   <p class="text-xs" style="color:#9ca3af;">Pay when your order arrives</p>
                 </div>
-                <span class="ml-auto text-xl">💵</span>
               </label>
             </div>
 
@@ -163,10 +162,10 @@
 
             <!-- Mobile: place order button -->
             <button type="submit" :disabled="placing || cartStore.items.length === 0"
-              class="lg:hidden w-full py-4 rounded-xl font-bold text-white text-sm transition-all duration-200"
+              class="lg:hidden w-full py-4 rounded-xl font-semibold text-white text-sm transition-all duration-200"
               :style="placing || cartStore.items.length === 0
                 ? 'background:#93c5fd;cursor:not-allowed;'
-                : 'background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 20px rgba(13,110,253,0.4);'">
+                : 'background:#0D6EFD;'">
               {{ placing ? 'Placing Order…' : `Place Order · $${orderTotal.toFixed(2)}` }}
             </button>
           </form>
@@ -214,18 +213,18 @@
                   {{ shipping === 0 ? 'Free' : '$' + shipping.toFixed(2) }}
                 </span>
               </div>
-              <div style="border-top:1px solid #F3F4F6;" class="pt-2.5 flex justify-between font-black text-base">
+              <div style="border-top:1px solid #F3F4F6;" class="pt-2.5 flex justify-between font-bold text-base">
                 <span style="color:#0F0F1A;">Total</span>
-                <span style="color:#0D6EFD;">${{ orderTotal.toFixed(2) }}</span>
+                <span style="color:#0F0F1A;">${{ orderTotal.toFixed(2) }}</span>
               </div>
             </div>
 
             <!-- Desktop: place order button -->
             <button @click="placeOrder" :disabled="placing || cartStore.items.length === 0"
-              class="hidden lg:block w-full mt-5 py-4 rounded-xl font-bold text-white text-sm transition-all duration-200"
+              class="hidden lg:block w-full mt-5 py-4 rounded-xl font-semibold text-white text-sm transition-all duration-200"
               :style="placing || cartStore.items.length === 0
                 ? 'background:#93c5fd;cursor:not-allowed;'
-                : 'background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 20px rgba(13,110,253,0.4);'">
+                : 'background:#0D6EFD;'">
               <span class="flex items-center justify-center gap-2">
                 <svg v-if="placing" class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
@@ -235,10 +234,10 @@
             </button>
 
             <!-- Trust -->
-            <div class="flex items-center justify-center gap-4 mt-4">
-              <span class="text-[11px]" style="color:#9ca3af;">🔒 Secure</span>
-              <span class="text-[11px]" style="color:#9ca3af;">🚚 Fast Delivery</span>
-              <span class="text-[11px]" style="color:#9ca3af;">↩️ Free Returns</span>
+            <div class="flex items-center justify-center gap-5 mt-4 pt-4" style="border-top:1px solid #F3F4F6;">
+              <span class="text-[11px] font-medium" style="color:#9ca3af;">Secure checkout</span>
+              <span style="color:#E5E7EB;">·</span>
+              <span class="text-[11px] font-medium" style="color:#9ca3af;">Free returns</span>
             </div>
           </div>
         </div>

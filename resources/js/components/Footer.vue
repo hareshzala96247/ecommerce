@@ -121,7 +121,7 @@ const contactRows = computed(() => {
   return rows;
 });
 
-const trustBadges = ['🔒 SSL Secure', '💳 PCI Compliant', '⭐ 4.9 Rated'];
+const trustBadges = ['SSL Secure', 'PCI Compliant', '4.9 Rated'];
 const shopLinks    = ['New Arrivals', 'Best Sellers', 'Sale Items', 'Gift Cards', 'All Products'];
 const supportLinks = ['My Account', 'Track Order', 'Returns & Exchanges', 'FAQs', 'Contact Us'];
 const apps = [

@@ -3,16 +3,15 @@
   <!-- Loading state -->
   <div v-if="loading" class="min-h-screen flex items-center justify-center">
     <div class="flex flex-col items-center gap-4">
-      <div class="w-14 h-14 rounded-2xl animate-pulse" style="background: linear-gradient(135deg,#0D6EFD,#7C3AED);"></div>
-      <p class="text-gray-400 text-sm font-medium">Loading product…</p>
+      <div class="w-10 h-10 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      <p class="text-gray-400 text-sm">Loading product…</p>
     </div>
   </div>
 
   <!-- Not found -->
   <div v-else-if="!product" class="min-h-screen flex items-center justify-center text-center px-4">
     <div>
-      <div class="text-7xl mb-6">😕</div>
-      <h2 class="text-2xl font-extrabold mb-2" style="color:#0F0F1A;">Product Not Found</h2>
+      <h2 class="text-2xl font-bold mb-2" style="color:#0F0F1A;">Product not found</h2>
       <p class="text-gray-400 mb-8">This product may have been removed or doesn't exist.</p>
       <RouterLink to="/shop" class="btn-primary">Browse All Products</RouterLink>
     </div>
@@ -136,7 +135,7 @@
             </div>
 
             <!-- Name -->
-            <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight" style="color:#0F0F1A;">
+            <h1 class="text-3xl sm:text-4xl font-bold leading-tight" style="color:#0F0F1A;">
               {{ product.name }}
             </h1>
 
@@ -155,24 +154,24 @@
 
             <!-- Price: simple -->
             <div v-if="product.type === 'simple'" class="flex items-baseline gap-3">
-              <span class="text-4xl font-extrabold" style="color:#0F0F1A;">${{ product.price }}</span>
-              <span v-if="product.original_price" class="text-xl text-gray-400 line-through">${{ product.original_price }}</span>
-              <span v-if="discount" class="text-sm font-bold px-2.5 py-1 rounded-full text-white" style="background:#FF6B00;">Save {{ discount }}%</span>
+              <span class="text-3xl font-bold" style="color:#0F0F1A;">${{ product.price }}</span>
+              <span v-if="product.original_price" class="text-lg text-gray-400 line-through">${{ product.original_price }}</span>
+              <span v-if="discount" class="text-xs font-semibold px-2 py-1 rounded-md" style="background:#FEF3C7;color:#92400E;">Save {{ discount }}%</span>
             </div>
             <!-- Price: variable -->
             <div v-else-if="product.type === 'variable'" class="flex items-baseline gap-3">
               <template v-if="selectedVariation">
-                <span class="text-4xl font-extrabold" style="color:#0F0F1A;">${{ selectedVariation.price }}</span>
-                <span v-if="selectedVariation.original_price" class="text-xl text-gray-400 line-through">${{ selectedVariation.original_price }}</span>
+                <span class="text-3xl font-bold" style="color:#0F0F1A;">${{ selectedVariation.price }}</span>
+                <span v-if="selectedVariation.original_price" class="text-lg text-gray-400 line-through">${{ selectedVariation.original_price }}</span>
               </template>
               <template v-else>
-                <span class="text-4xl font-extrabold" style="color:#0F0F1A;">{{ variablePriceRange ?? '—' }}</span>
+                <span class="text-3xl font-bold" style="color:#0F0F1A;">{{ variablePriceRange ?? '—' }}</span>
                 <span class="text-sm text-gray-400 font-medium">select options</span>
               </template>
             </div>
             <!-- Price: grouped -->
             <div v-else-if="groupPriceLabel" class="flex items-baseline gap-3">
-              <span class="text-4xl font-extrabold" style="color:#0F0F1A;">{{ groupPriceLabel }}</span>
+              <span class="text-3xl font-bold" style="color:#0F0F1A;">{{ groupPriceLabel }}</span>
               <span class="text-sm text-gray-400 font-medium">starting price</span>
             </div>
 
@@ -272,8 +271,8 @@
                       </div>
                     </div>
                     <RouterLink :to="`/product/${item.slug}`"
-                      class="flex-shrink-0 text-xs font-bold px-4 py-2 rounded-full text-white transition-all duration-200 hover:opacity-90"
-                      style="background: linear-gradient(135deg,#0D6EFD,#7C3AED);">
+                      class="flex-shrink-0 text-xs font-semibold px-4 py-2 rounded-lg text-white transition-all duration-200"
+                      style="background:#0F0F1A;">
                       View
                     </RouterLink>
                   </div>
@@ -284,7 +283,9 @@
             <!-- Trust badges -->
             <div class="grid grid-cols-3 gap-3 mt-2">
               <div v-for="t in trust" :key="t.label" class="trust-item">
-                <span class="text-xl mb-1.5">{{ t.icon }}</span>
+                <svg class="w-5 h-5 mb-1.5" style="color:#6b7280;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" :d="t.path"/>
+                </svg>
                 <span class="text-[11px] font-semibold text-center leading-tight" style="color:#374151;">{{ t.label }}</span>
               </div>
             </div>
@@ -317,8 +318,7 @@
     <section v-if="related.length > 0" class="py-16" style="background:#FAFAFA;">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-10">
-          <span class="text-xs font-extrabold uppercase tracking-[0.2em]" style="color:#0D6EFD;">More Like This</span>
-          <h2 class="text-3xl font-extrabold mt-1" style="color:#0F0F1A;">You May Also Like</h2>
+          <h2 class="text-2xl font-bold" style="color:#0F0F1A;">You may also like</h2>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           <ProductCard
@@ -541,9 +541,9 @@ function isValueAvailable(attrId, valueId) {
 }
 
 const trust = [
-  { icon: '🚚', label: 'Free Shipping'    },
-  { icon: '↩️', label: 'Free Returns'     },
-  { icon: '🔒', label: 'Secure Checkout'  },
+  { label: 'Free Shipping',   path: 'M3 8l7 5 7-5M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+  { label: 'Free Returns',    path: 'M3 10h10a8 8 0 018 8v2M3 10l6 6M3 10l6-6' },
+  { label: 'Secure Checkout', path: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
 ];
 
 async function fetchProduct(slug) {
@@ -663,11 +663,10 @@ function toggleFav() {
 
 /* ── Buttons ── */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 font-bold px-7 py-3.5 rounded-full text-white transition-all duration-300;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 8px 24px rgba(13,110,253,0.4);
+  @apply inline-flex items-center justify-center gap-2 font-semibold px-7 py-3 rounded-xl text-white transition-all duration-200;
+  background: #0D6EFD;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(13,110,253,0.5); }
+.btn-primary:hover { background: #0B5ED7; }
 
 /* ── Image area ── */
 .product-emoji {
@@ -733,14 +732,12 @@ function toggleFav() {
 
 /* ── Cart button ── */
 .cart-btn {
-  @apply py-3.5 px-6 rounded-2xl font-bold text-sm text-white transition-all duration-300;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 8px 24px rgba(13,110,253,0.4);
+  @apply py-3.5 px-6 rounded-xl font-semibold text-sm text-white transition-all duration-200;
+  background: #0D6EFD;
 }
-.cart-btn:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(13,110,253,0.5); }
+.cart-btn:hover { background: #0B5ED7; }
 .cart-btn-done {
   background: #16a34a !important;
-  box-shadow: 0 8px 24px rgba(22,163,74,0.4) !important;
 }
 
 /* ── Wishlist button ── */
@@ -805,7 +802,7 @@ function toggleFav() {
   color: #0D6EFD;
 }
 .variation-pill-active {
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
+  background: #0F0F1A;
   border-color: transparent;
   color: #fff !important;
 }

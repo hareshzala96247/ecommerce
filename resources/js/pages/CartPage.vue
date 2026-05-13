@@ -12,7 +12,7 @@
           </svg>
         </RouterLink>
         <div>
-          <h1 class="text-2xl font-black" style="color:#0F0F1A;">Shopping Cart</h1>
+          <h1 class="text-2xl font-bold" style="color:#0F0F1A;">Shopping Cart</h1>
           <p class="text-sm" style="color:#9ca3af;">
             {{ cartCount }} {{ cartCount === 1 ? 'item' : 'items' }}
           </p>
@@ -33,8 +33,8 @@
           Looks like you haven't added anything yet. Browse our products and find something you love!
         </p>
         <RouterLink to="/shop"
-          class="px-8 py-3 rounded-xl font-bold text-sm text-white transition-all duration-200"
-          style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 16px rgba(13,110,253,0.35);">
+          class="px-8 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200"
+          style="background:#0D6EFD;">
           Browse Products
         </RouterLink>
       </div>
@@ -70,7 +70,7 @@
                 <p v-if="item.variationLabel" class="text-[12px] mt-0.5" style="color:#9ca3af;">
                   {{ item.variationLabel }}
                 </p>
-                <p class="text-base font-black mt-1" style="color:#0D6EFD;">
+                <p class="text-base font-bold mt-1" style="color:#0F0F1A;">
                   ${{ (item.price * item.qty).toFixed(2) }}
                 </p>
                 <p class="text-[11px]" style="color:#9ca3af;">
@@ -144,9 +144,9 @@
               </div>
               <!-- Divider -->
               <div style="height:1px;background:#F3F4F6;"></div>
-              <div class="flex justify-between text-base font-black">
+              <div class="flex justify-between text-base font-bold">
                 <span style="color:#0F0F1A;">Total</span>
-                <span style="color:#0D6EFD;">${{ orderTotal.toFixed(2) }}</span>
+                <span style="color:#0F0F1A;">${{ orderTotal.toFixed(2) }}</span>
               </div>
             </div>
 
@@ -175,15 +175,17 @@
 
             <!-- Checkout -->
             <RouterLink to="/checkout"
-              class="block w-full mt-5 py-3.5 rounded-xl font-bold text-sm text-white text-center transition-all duration-200"
-              style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 16px rgba(13,110,253,0.35);">
+              class="block w-full mt-5 py-3.5 rounded-xl font-semibold text-sm text-white text-center transition-all duration-200"
+              style="background:#0D6EFD;">
               Proceed to Checkout
             </RouterLink>
 
             <!-- Trust row -->
-            <div class="flex items-center justify-center gap-4 mt-5">
+            <div class="flex items-center justify-center gap-5 mt-5 pt-4" style="border-top:1px solid #F3F4F6;">
               <div v-for="t in trust" :key="t.label" class="flex items-center gap-1.5">
-                <span class="text-base">{{ t.icon }}</span>
+                <svg class="w-3.5 h-3.5" style="color:#9ca3af;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" :d="t.path"/>
+                </svg>
                 <span class="text-[11px] font-medium" style="color:#9ca3af;">{{ t.label }}</span>
               </div>
             </div>
@@ -255,9 +257,9 @@ function applyCoupon() {
 }
 
 const trust = [
-    { icon: '🔒', label: 'Secure' },
-    { icon: '↩️', label: 'Free Returns' },
-    { icon: '🚚', label: 'Fast Delivery' },
+    { label: 'Secure',        path: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
+    { label: 'Free Returns',  path: 'M3 10h10a8 8 0 018 8v2M3 10l6 6M3 10l6-6' },
+    { label: 'Fast Delivery', path: 'M3 8l7 5 7-5M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
 ];
 </script>
 

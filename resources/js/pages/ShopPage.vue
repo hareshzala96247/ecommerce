@@ -1,19 +1,15 @@
 <template>
   <!-- Page header -->
   <section class="shop-hero">
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="sh-orb sh-orb-1"></div>
-      <div class="sh-orb sh-orb-2"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <!-- Breadcrumb -->
-      <nav class="flex items-center gap-2 text-sm mb-5 text-white/50">
-        <RouterLink to="/" class="hover:text-white transition-colors">Home</RouterLink>
+      <nav class="flex items-center gap-2 text-sm mb-4" style="color:#9ca3af;">
+        <RouterLink to="/" class="hover:text-gray-900 transition-colors">Home</RouterLink>
         <span>/</span>
-        <span class="text-white/80">Shop</span>
+        <span style="color:#0F0F1A;">Shop</span>
       </nav>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-white mb-2">All Products</h1>
-      <p class="text-white/60 text-base">
+      <h1 class="text-3xl sm:text-4xl font-bold" style="color:#0F0F1A;">All Products</h1>
+      <p class="text-sm mt-2" style="color:#6b7280;">
         Discover {{ totalCount > 0 ? totalCount + ' curated' : 'our' }} products across every category
       </p>
     </div>
@@ -241,25 +237,9 @@ function loadMore() {
 
 /* ── Hero ── */
 .shop-hero {
-  @apply relative overflow-hidden;
-  background: #06061A;
-  min-height: 200px;
-}
-.sh-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.25;
-}
-.sh-orb-1 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, #0D6EFD, transparent 70%);
-  top: -200px; left: -100px;
-}
-.sh-orb-2 {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, #7C3AED, transparent 70%);
-  top: -100px; right: 0;
+  @apply relative;
+  background: #fff;
+  border-bottom: 1px solid #F3F4F6;
 }
 
 /* ── Search input ── */
@@ -294,10 +274,9 @@ function loadMore() {
 }
 .cat-pill:hover { background: #EBEBEB; color: #374151; }
 .cat-pill-active {
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
+  background: #0F0F1A;
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 4px 14px rgba(13,110,253,0.35);
 }
 .cat-count {
   @apply text-[10px] font-bold px-1.5 py-0.5 rounded-full;
@@ -313,23 +292,19 @@ function loadMore() {
 
 /* ── Buttons ── */
 .btn-primary-sm {
-  @apply inline-flex items-center gap-2 font-bold px-6 py-3 rounded-full text-white text-sm transition-all duration-200;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 6px 20px rgba(13,110,253,0.35);
+  @apply inline-flex items-center gap-2 font-semibold px-6 py-3 rounded-xl text-white text-sm transition-all duration-200;
+  background: #0D6EFD;
 }
-.btn-primary-sm:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(13,110,253,0.45); }
+.btn-primary-sm:hover { background: #0B5ED7; }
 
 .load-more-btn {
-  @apply inline-flex items-center gap-2.5 font-bold px-8 py-4 rounded-full text-sm transition-all duration-300 disabled:opacity-60;
-  border: 2px solid #0D6EFD;
-  color: #0D6EFD;
-  background: transparent;
+  @apply inline-flex items-center gap-2.5 font-semibold px-8 py-3.5 rounded-xl text-sm transition-all duration-200 disabled:opacity-60;
+  border: 1.5px solid #E5E7EB;
+  color: #374151;
+  background: #fff;
 }
 .load-more-btn:not(:disabled):hover {
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  border-color: transparent;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(13,110,253,0.35);
+  border-color: #0D6EFD;
+  color: #0D6EFD;
 }
 </style>

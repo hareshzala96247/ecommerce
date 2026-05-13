@@ -1,16 +1,7 @@
 <template>
-  <section class="hero relative overflow-hidden flex items-center min-h-[92vh]">
+  <section class="hero relative overflow-hidden flex items-center min-h-[640px]">
 
-    <!-- Background: aurora orbs -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-      <div class="orb orb-blue"></div>
-      <div class="orb orb-purple"></div>
-      <div class="orb orb-orange"></div>
-      <div class="noise"></div>
-      <div class="dot-grid"></div>
-    </div>
-
-    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 z-10">
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24 z-10">
       <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
         <!-- LEFT: Copy -->
@@ -150,47 +141,6 @@ const stats = [
 /* ── Background ── */
 .hero { background: #06061A; }
 
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-}
-.orb-blue {
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(13,110,253,0.35), transparent 70%);
-  top: -200px; left: -200px;
-  animation: orb-drift 14s ease-in-out infinite alternate;
-}
-.orb-purple {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(124,58,237,0.3), transparent 70%);
-  top: 20%; right: -100px;
-  animation: orb-drift 18s ease-in-out infinite alternate-reverse;
-}
-.orb-orange {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(255,107,0,0.15), transparent 70%);
-  bottom: -100px; left: 30%;
-  animation: orb-drift 10s ease-in-out infinite alternate;
-}
-@keyframes orb-drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(60px, 50px) scale(1.15); }
-}
-
-.dot-grid {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
-}
-.noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 /* ── Fade-up animation ── */
 .fade-up {
   opacity: 0;
@@ -225,40 +175,31 @@ const stats = [
   @apply text-5xl sm:text-6xl lg:text-[72px] font-extrabold text-white leading-[1.04] mb-6;
 }
 .gradient-word {
-  background: linear-gradient(135deg, #60A5FA 0%, #0D6EFD 40%, #A78BFA 70%, #FF6B00 100%);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-pan 5s ease infinite;
-}
-@keyframes gradient-pan {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  color: #60A5FA;
 }
 
 /* ── Buttons ── */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2.5 font-bold px-7 py-3.5 rounded-full text-white transition-all duration-300;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 8px 30px -5px rgba(13,110,253,0.5), 0 0 0 1px rgba(255,255,255,0.08);
+  @apply inline-flex items-center justify-center gap-2.5 font-semibold px-7 py-3.5 rounded-xl text-white transition-all duration-200;
+  background: #0D6EFD;
+  box-shadow: 0 4px 16px -4px rgba(13,110,253,0.4);
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px -5px rgba(13,110,253,0.65), 0 0 0 1px rgba(255,255,255,0.1);
+  background: #0B5ED7;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -4px rgba(13,110,253,0.5);
 }
 .btn-primary:active { transform: translateY(0); }
 
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2.5 font-semibold px-7 py-3.5 rounded-full text-white transition-all duration-300 backdrop-blur-sm;
+  @apply inline-flex items-center justify-center gap-2.5 font-semibold px-7 py-3.5 rounded-xl text-white transition-all duration-200 backdrop-blur-sm;
   background: rgba(255,255,255,0.06);
   border: 1.5px solid rgba(255,255,255,0.15);
 }
 .btn-ghost:hover {
   background: rgba(255,255,255,0.11);
   border-color: rgba(255,255,255,0.3);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 /* ── Stats ── */

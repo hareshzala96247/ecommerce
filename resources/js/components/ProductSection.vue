@@ -5,9 +5,8 @@
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12 gap-6">
         <div>
-          <span class="section-tag">This Week</span>
           <h2 class="section-heading">{{ tabTitles[activeTab] }}</h2>
-          <p class="text-gray-400 mt-1.5 text-sm">Handpicked products you'll love</p>
+          <p class="text-gray-500 mt-1.5 text-sm">Handpicked products you'll love</p>
         </div>
 
         <!-- Tab switcher -->
@@ -152,20 +151,15 @@ const resetMagnet = () => { magnetX.value = 0; magnetY.value = 0; };
 @reference "../../css/app.css";
 
 /* ── Section header ── */
-.section-tag {
-  @apply block text-xs font-extrabold uppercase tracking-[0.2em] mb-2;
-  color: #0D6EFD;
-}
 .section-heading {
-  @apply text-4xl font-extrabold;
+  @apply text-3xl font-bold;
   color: #0F0F1A;
 }
 
 /* ── Tab pill ── */
 .tab-pill {
-  @apply absolute top-1 bottom-1 rounded-xl transition-all duration-300;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  box-shadow: 0 4px 14px rgba(13,110,253,0.4);
+  @apply absolute top-1 bottom-1 rounded-lg transition-all duration-300;
+  background: #0F0F1A;
 }
 
 /* ── TransitionGroup ── */
@@ -182,21 +176,13 @@ const resetMagnet = () => { magnetX.value = 0; magnetY.value = 0; };
 
 /* ── View All button ── */
 .view-all-btn {
-  @apply relative inline-flex items-center justify-center font-bold px-10 py-4 rounded-full overflow-hidden transition-colors duration-300;
-  border: 2px solid #0D6EFD;
-  color: #0D6EFD;
+  @apply inline-flex items-center justify-center font-semibold px-8 py-3.5 rounded-xl transition-all duration-200;
+  border: 1.5px solid #E5E7EB;
+  color: #374151;
+  background: #fff;
 }
-.view-all-btn::before {
-  content: '';
-  @apply absolute inset-0 rounded-full;
-  background: linear-gradient(135deg, #0D6EFD, #7C3AED);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-}
-.view-all-btn:hover::before { transform: scaleX(1); transform-origin: left; }
 .view-all-btn:hover {
-  color: #fff;
-  border-color: transparent;
+  border-color: #0D6EFD;
+  color: #0D6EFD;
 }
 </style>

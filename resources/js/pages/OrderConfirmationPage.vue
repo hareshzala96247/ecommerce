@@ -10,22 +10,18 @@
       </div>
 
       <template v-else-if="order">
-        <!-- Success animation -->
+        <!-- Success hero -->
         <div class="text-center mb-8">
-          <div class="relative inline-flex mb-6">
-            <div class="w-24 h-24 rounded-full flex items-center justify-center"
-              style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 16px 48px rgba(13,110,253,0.4);"
+          <div class="inline-flex mb-6">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center"
+              style="background:#16a34a;"
               :class="animate ? 'scale-in' : ''">
-              <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
               </svg>
             </div>
-            <div class="absolute -top-1 -right-1 w-8 h-8 rounded-full flex items-center justify-center text-lg"
-              style="background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.12);">
-              🎉
-            </div>
           </div>
-          <h1 class="text-3xl font-black mb-2" style="color:#0F0F1A;">Order Placed!</h1>
+          <h1 class="text-2xl font-bold mb-2" style="color:#0F0F1A;">Thanks, your order is confirmed</h1>
           <p class="text-sm" style="color:#6b7280;">
             Thank you, <strong>{{ order.customer_name }}</strong>! Your order has been received.
           </p>
@@ -37,11 +33,11 @@
           <!-- Order meta -->
           <div class="grid grid-cols-2 gap-4 mb-5 pb-5" style="border-bottom:1px solid #F3F4F6;">
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Number</p>
-              <p class="text-base font-black" style="color:#0F0F1A;">#{{ String(order.id).padStart(5, '0') }}</p>
+              <p class="text-[11px] font-semibold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Number</p>
+              <p class="text-base font-bold" style="color:#0F0F1A;">#{{ String(order.id).padStart(5, '0') }}</p>
             </div>
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Status</p>
+              <p class="text-[11px] font-semibold uppercase tracking-wider mb-1" style="color:#9ca3af;">Status</p>
               <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold capitalize"
                 :style="statusStyle(order.status)">
                 <span class="w-1.5 h-1.5 rounded-full" :style="{ background: statusDot(order.status) }"></span>
@@ -49,12 +45,12 @@
               </span>
             </div>
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Date</p>
+              <p class="text-[11px] font-semibold uppercase tracking-wider mb-1" style="color:#9ca3af;">Order Date</p>
               <p class="text-sm font-semibold" style="color:#0F0F1A;">{{ orderDate }}</p>
             </div>
             <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider mb-1" style="color:#9ca3af;">Total</p>
-              <p class="text-base font-black" style="color:#0D6EFD;">${{ parseFloat(order.total).toFixed(2) }}</p>
+              <p class="text-[11px] font-semibold uppercase tracking-wider mb-1" style="color:#9ca3af;">Total</p>
+              <p class="text-base font-bold" style="color:#0F0F1A;">${{ parseFloat(order.total).toFixed(2) }}</p>
             </div>
           </div>
 
@@ -115,12 +111,12 @@
         <!-- Actions -->
         <div class="flex flex-col sm:flex-row gap-3">
           <RouterLink to="/shop"
-            class="flex-1 py-3 rounded-xl font-bold text-sm text-center transition-all duration-200 text-white"
-            style="background:linear-gradient(135deg,#0D6EFD,#7C3AED);box-shadow:0 4px 16px rgba(13,110,253,0.35);">
+            class="flex-1 py-3 rounded-xl font-semibold text-sm text-center transition-all duration-200 text-white"
+            style="background:#0D6EFD;">
             Continue Shopping
           </RouterLink>
           <RouterLink to="/account"
-            class="flex-1 py-3 rounded-xl font-bold text-sm text-center transition-all duration-200"
+            class="flex-1 py-3 rounded-xl font-semibold text-sm text-center transition-all duration-200"
             style="border:1.5px solid #E5E7EB;color:#374151;">
             My Account
           </RouterLink>
